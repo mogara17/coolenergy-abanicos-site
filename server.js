@@ -13,6 +13,9 @@ const config = require('./config');
 
 const app = express();
 
+// Trust proxy (required for Railway, Vercel, etc. - fixes rate limiter)
+app.set('trust proxy', 1);
+
 // Security: Helmet for HTTP headers (relaxed CSP for Cloudinary)
 app.use(helmet({
   contentSecurityPolicy: false,
