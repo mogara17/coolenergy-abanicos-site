@@ -240,34 +240,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Open modal when clicking category cards
-  categoryCards.forEach(card => {
-    card.addEventListener('click', () => {
-      const category = card.dataset.category;
-      if (!category) return;
-
-      // Set modal content
-      const info = categoryInfo[category];
-      modalTitle.textContent = info.title;
-      modalSubtitle.textContent = info.subtitle;
-
-      // Get products for this category
-      const products = document.querySelectorAll(`.product-card[data-category="${category}"]`);
-
-      // Clone products to modal
-      modalGrid.innerHTML = '';
-      products.forEach(product => {
-        const clone = product.cloneNode(true);
-        clone.style.display = '';
-        clone.classList.remove('revealed');
-        modalGrid.appendChild(clone);
-      });
-
-      // Open modal
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
-  });
+  // Category card click listeners are set up in attachFilterListeners()
+  // after Cloudinary images load, to include dynamic product cards.
 
   // Close modal
   const closeModal = () => {
