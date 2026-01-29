@@ -245,26 +245,28 @@ app.get('/api/images', requireCloudinary, async (req, res) => {
 
     const result = await cloudinary.api.resources(options);
 
-    const images = result.resources.map(img => ({
-      public_id: img.public_id,
-      url: img.secure_url,
-      thumbnail: cloudinary.url(img.public_id, {
-        width: config.cloudinary.thumbnailSize.width,
-        height: config.cloudinary.thumbnailSize.height,
-        crop: 'fill',
-        quality: 'auto',
-        fetch_format: 'auto',
-        secure: true
-      }),
-      full: cloudinary.url(img.public_id, {
-        width: config.cloudinary.fullSize.width,
-        quality: 'auto',
-        fetch_format: 'auto',
-        secure: true
-      }),
-      category: extractCategory(img.public_id),
-      created_at: img.created_at
-    }));
+    const images = result.resources
+      .map(img => ({
+        public_id: img.public_id,
+        url: img.secure_url,
+        thumbnail: cloudinary.url(img.public_id, {
+          width: config.cloudinary.thumbnailSize.width,
+          height: config.cloudinary.thumbnailSize.height,
+          crop: 'fill',
+          quality: 'auto',
+          fetch_format: 'auto',
+          secure: true
+        }),
+        full: cloudinary.url(img.public_id, {
+          width: config.cloudinary.fullSize.width,
+          quality: 'auto',
+          fetch_format: 'auto',
+          secure: true
+        }),
+        category: extractCategory(img.public_id),
+        created_at: img.created_at
+      }))
+      .filter(img => config.categories.list.includes(img.category));
 
     res.json({ success: true, images, source: 'cloudinary' });
   } catch (error) {
