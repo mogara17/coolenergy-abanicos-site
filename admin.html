@@ -305,6 +305,22 @@
       margin-bottom: 1.5rem;
     }
 
+    .category-group-label {
+      grid-column: 1 / -1;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--neon-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding-top: 0.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .category-group-label:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
     .category-option {
       padding: 1rem;
       border: 2px solid rgba(255,255,255,0.1);
@@ -473,7 +489,7 @@
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
@@ -528,7 +544,7 @@
         grid-template-columns: 1fr;
       }
       .stats {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
       }
       .analytics-grid {
         grid-template-columns: 1fr;
@@ -583,16 +599,20 @@
           <div class="label">Total</div>
         </div>
         <div class="stat-card">
-          <div class="number" id="statRaveXL">-</div>
-          <div class="label">RAVE XL</div>
+          <div class="number" id="statXL">-</div>
+          <div class="label">XL</div>
         </div>
         <div class="stat-card">
-          <div class="number" id="statRaveL">-</div>
-          <div class="label">RAVE L</div>
+          <div class="number" id="statL">-</div>
+          <div class="label">L</div>
         </div>
         <div class="stat-card">
-          <div class="number" id="statMedium">-</div>
-          <div class="label">MEDIUM</div>
+          <div class="number" id="statM">-</div>
+          <div class="label">M</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" id="statPorta">-</div>
+          <div class="label">Porta</div>
         </div>
       </div>
 
@@ -602,21 +622,42 @@
 
         <label>1. Selecciona la categoria:</label>
         <div class="category-select" id="categorySelect">
-          <div class="category-option" data-category="rave-xl">
-            <span>RAVE XL</span>
-            <small>66cm - Festivales</small>
+          <div class="category-group-label">XL — 66cm</div>
+          <div class="category-option" data-category="xl-reflective">
+            <span>XL Reflective</span>
           </div>
-          <div class="category-option" data-category="rave-l">
-            <span>RAVE L</span>
-            <small>50cm - Versatil</small>
+          <div class="category-option" data-category="xl-psicodelicos">
+            <span>XL Psicodélicos</span>
           </div>
-          <div class="category-option" data-category="medium">
-            <span>MEDIUM</span>
-            <small>40cm - Diario</small>
+          <div class="category-option" data-category="xl-glow">
+            <span>XL Glow</span>
           </div>
-          <div class="category-option" data-category="personalizados">
-            <span>PERSONALIZADOS</span>
-            <small>A pedido</small>
+          <div class="category-option" data-category="xl-holographic">
+            <span>XL Holographic</span>
+          </div>
+
+          <div class="category-group-label">L — 50cm</div>
+          <div class="category-option" data-category="l-electric">
+            <span>L Electric</span>
+          </div>
+          <div class="category-option" data-category="l-dark">
+            <span>L Dark</span>
+          </div>
+
+          <div class="category-group-label">M — 40cm</div>
+          <div class="category-option" data-category="m-glitter">
+            <span>M Glitter</span>
+          </div>
+          <div class="category-option" data-category="m-basic">
+            <span>M Basic</span>
+          </div>
+
+          <div class="category-group-label">Accesorios</div>
+          <div class="category-option" data-category="porta-abanico-xl-l">
+            <span>Porta Abanico XL/L</span>
+          </div>
+          <div class="category-option" data-category="porta-abanico-m">
+            <span>Porta Abanico M</span>
           </div>
         </div>
 
@@ -667,10 +708,24 @@
           <label for="filterCategory">Filtrar por categoria</label>
           <select id="filterCategory">
             <option value="all">Todas las categorias</option>
-            <option value="rave-xl">RAVE XL</option>
-            <option value="rave-l">RAVE L</option>
-            <option value="medium">MEDIUM</option>
-            <option value="personalizados">Personalizados</option>
+            <optgroup label="XL — 66cm">
+              <option value="xl-reflective">XL Reflective</option>
+              <option value="xl-psicodelicos">XL Psicodélicos</option>
+              <option value="xl-glow">XL Glow</option>
+              <option value="xl-holographic">XL Holographic</option>
+            </optgroup>
+            <optgroup label="L — 50cm">
+              <option value="l-electric">L Electric</option>
+              <option value="l-dark">L Dark</option>
+            </optgroup>
+            <optgroup label="M — 40cm">
+              <option value="m-glitter">M Glitter</option>
+              <option value="m-basic">M Basic</option>
+            </optgroup>
+            <optgroup label="Accesorios">
+              <option value="porta-abanico-xl-l">Porta Abanico XL/L</option>
+              <option value="porta-abanico-m">Porta Abanico M</option>
+            </optgroup>
           </select>
         </div>
         <div id="uploadedImages" class="uploaded-grid">
@@ -822,9 +877,14 @@
 
       updateStats(stats) {
         document.getElementById('statTotal').textContent = stats.total || 0;
-        document.getElementById('statRaveXL').textContent = stats['rave-xl'] || 0;
-        document.getElementById('statRaveL').textContent = stats['rave-l'] || 0;
-        document.getElementById('statMedium').textContent = stats['medium'] || 0;
+        const xlCount = (stats['xl-reflective'] || 0) + (stats['xl-psicodelicos'] || 0) + (stats['xl-glow'] || 0) + (stats['xl-holographic'] || 0);
+        const lCount = (stats['l-electric'] || 0) + (stats['l-dark'] || 0);
+        const mCount = (stats['m-glitter'] || 0) + (stats['m-basic'] || 0);
+        const portaCount = (stats['porta-abanico-xl-l'] || 0) + (stats['porta-abanico-m'] || 0);
+        document.getElementById('statXL').textContent = xlCount;
+        document.getElementById('statL').textContent = lCount;
+        document.getElementById('statM').textContent = mCount;
+        document.getElementById('statPorta').textContent = portaCount;
       },
 
       updateAnalytics(analytics) {

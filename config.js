@@ -30,7 +30,7 @@ module.exports = {
   // SERVIDOR
   // ============================================
   server: {
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 4000,
     adminPath: '/admin-abanicos-abm',
     healthPath: '/health'
   },
@@ -55,8 +55,7 @@ module.exports = {
   auth: {
     jwtSecret: process.env.JWT_SECRET || 'coolenergy-jwt-secret-change-in-production',
     jwtExpiresIn: '24h',
-    // Hash bcrypt para: #Ab4n1co5-2024!
-    adminPasswordHash: process.env.ADMIN_PASSWORD_HASH || '$2a$10$mTqdeAbk0TjKAzH59l.0xeixmYPtj5uVlJBvJDcevwXYRbECtYixy'
+    adminPasswordHash: process.env.ADMIN_PASSWORD_HASH || '$2a$10$1jOjoa4JZeHJSVVMrX966OGahy9lS.atr3C9mh9EC337RzWektKo.'
   },
 
   // ============================================
@@ -90,18 +89,35 @@ module.exports = {
   // CATEGORIAS DE PRODUCTOS
   // ============================================
   categories: {
-    list: ['rave-xl', 'rave-l', 'medium', 'personalizados'],
+    list: [
+      'xl-reflective', 'xl-psicodelicos', 'xl-glow', 'xl-holographic',
+      'l-electric', 'l-dark',
+      'm-glitter', 'm-basic',
+      'porta-abanico-xl-l', 'porta-abanico-m'
+    ],
     labels: {
-      'rave-xl': 'RAVE XL',
-      'rave-l': 'RAVE L',
-      'medium': 'MEDIUM',
-      'personalizados': 'Personalizado'
+      'xl-reflective': 'XL Reflective',
+      'xl-psicodelicos': 'XL Psicodélicos',
+      'xl-glow': 'XL Glow',
+      'xl-holographic': 'XL Holographic',
+      'l-electric': 'L Electric',
+      'l-dark': 'L Dark',
+      'm-glitter': 'M Glitter',
+      'm-basic': 'M Basic',
+      'porta-abanico-xl-l': 'Porta Abanico XL/L',
+      'porta-abanico-m': 'Porta Abanico M'
     },
     sizes: {
-      'rave-xl': '66cm',
-      'rave-l': '50cm',
-      'medium': '40cm',
-      'personalizados': 'XL o L'
+      'xl-reflective': '66cm',
+      'xl-psicodelicos': '66cm',
+      'xl-glow': '66cm',
+      'xl-holographic': '66cm',
+      'l-electric': '50cm',
+      'l-dark': '50cm',
+      'm-glitter': '40cm',
+      'm-basic': '40cm',
+      'porta-abanico-xl-l': 'Accesorio',
+      'porta-abanico-m': 'Accesorio'
     }
   },
 

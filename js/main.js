@@ -198,21 +198,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Category info for modal
   const categoryInfo = {
-    'rave-xl': {
-      title: 'RAVE XL',
-      subtitle: 'Los mas grandes. 66cm de puro flow para festivales epicos.'
+    'xl-reflective': {
+      title: 'XL Reflective',
+      subtitle: '66cm de reflejo puro. Brillan con cada flash de luz.'
     },
-    'rave-l': {
-      title: 'RAVE L',
-      subtitle: 'Versatiles y faciles de llevar. Perfectos para cualquier noche.'
+    'xl-psicodelicos': {
+      title: 'XL Psicodélicos',
+      subtitle: '66cm de viaje visual. Diseños que explotan de color.'
     },
-    'medium': {
-      title: 'MEDIUM',
-      subtitle: 'Para el dia a dia. Livianos, elegantes, tu compañero diario.'
+    'xl-glow': {
+      title: 'XL Glow',
+      subtitle: '66cm que brillan en la oscuridad. Hechos para la noche.'
     },
-    'personalizados': {
-      title: 'PERSONALIZADOS',
-      subtitle: 'Tu diseño, dibujado a mano. Unico como vos.'
+    'xl-holographic': {
+      title: 'XL Holographic',
+      subtitle: '66cm de efecto holográfico. Cambian con cada ángulo.'
+    },
+    'l-electric': {
+      title: 'L Electric',
+      subtitle: '50cm de energía vibrante. Colores que electrifican.'
+    },
+    'l-dark': {
+      title: 'L Dark',
+      subtitle: '50cm de estilo oscuro. Elegancia underground.'
+    },
+    'm-glitter': {
+      title: 'M Glitter',
+      subtitle: '40cm con brillo sutil. Tu compañero diario con destellos.'
+    },
+    'm-basic': {
+      title: 'M Basic',
+      subtitle: '40cm de estilo limpio. Simple, elegante, esencial.'
+    },
+    'porta-abanico-xl-l': {
+      title: 'Porta Abanico XL/L',
+      subtitle: 'Protege tu abanico grande. Llévalo a todos lados.'
+    },
+    'porta-abanico-m': {
+      title: 'Porta Abanico M',
+      subtitle: 'Protege tu abanico mediano. Compacto y práctico.'
     }
   };
 
@@ -343,17 +367,29 @@ document.addEventListener('DOMContentLoaded', () => {
     card.style.opacity = '0'; // Start invisible for animation
 
     const categoryLabels = {
-      'rave-xl': 'RAVE XL',
-      'rave-l': 'RAVE L',
-      'medium': 'MEDIUM',
-      'personalizados': 'Personalizado'
+      'xl-reflective': 'XL Reflective',
+      'xl-psicodelicos': 'XL Psicodélicos',
+      'xl-glow': 'XL Glow',
+      'xl-holographic': 'XL Holographic',
+      'l-electric': 'L Electric',
+      'l-dark': 'L Dark',
+      'm-glitter': 'M Glitter',
+      'm-basic': 'M Basic',
+      'porta-abanico-xl-l': 'Porta Abanico XL/L',
+      'porta-abanico-m': 'Porta Abanico M'
     };
 
     const categorySizes = {
-      'rave-xl': '66cm',
-      'rave-l': '50cm',
-      'medium': '40cm',
-      'personalizados': 'XL o L'
+      'xl-reflective': '66cm',
+      'xl-psicodelicos': '66cm',
+      'xl-glow': '66cm',
+      'xl-holographic': '66cm',
+      'l-electric': '50cm',
+      'l-dark': '50cm',
+      'm-glitter': '40cm',
+      'm-basic': '40cm',
+      'porta-abanico-xl-l': 'Accesorio',
+      'porta-abanico-m': 'Accesorio'
     };
 
     card.innerHTML = `

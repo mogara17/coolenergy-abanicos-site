@@ -7,68 +7,58 @@
   "instructions": {
     "add": "Para agregar una imagen: 1) Copiar archivo a images/fallback/{categoria}/ 2) Agregar entrada aqui 3) git add, commit, push",
     "naming": "Usar nombres descriptivos: abanico-001.jpg, galaxia-neon.jpg, etc.",
-    "categories": ["rave-xl", "rave-l", "medium", "personalizados"]
+    "categories": ["xl-reflective", "xl-psicodelicos", "xl-glow", "xl-holographic", "l-electric", "l-dark", "m-glitter", "m-basic", "porta-abanico-xl-l", "porta-abanico-m"]
   },
   "images": [
     {
-      "id": "rave-xl-001",
-      "filename": "rave-xl/abanico-001.jpg",
-      "category": "rave-xl"
+      "id": "xl-reflective-001",
+      "filename": "xl-reflective/abanico-001.jpg",
+      "category": "xl-reflective"
     },
     {
-      "id": "rave-xl-002",
-      "filename": "rave-xl/abanico-002.jpg",
-      "category": "rave-xl"
+      "id": "xl-psicodelicos-001",
+      "filename": "xl-psicodelicos/abanico-001.jpg",
+      "category": "xl-psicodelicos"
     },
     {
-      "id": "rave-xl-003",
-      "filename": "rave-xl/abanico-003.jpg",
-      "category": "rave-xl"
+      "id": "xl-glow-001",
+      "filename": "xl-glow/abanico-001.jpg",
+      "category": "xl-glow"
     },
     {
-      "id": "rave-l-001",
-      "filename": "rave-l/abanico-001.jpg",
-      "category": "rave-l"
+      "id": "xl-holographic-001",
+      "filename": "xl-holographic/abanico-001.jpg",
+      "category": "xl-holographic"
     },
     {
-      "id": "rave-l-002",
-      "filename": "rave-l/abanico-002.jpg",
-      "category": "rave-l"
+      "id": "l-electric-001",
+      "filename": "l-electric/abanico-001.jpg",
+      "category": "l-electric"
     },
     {
-      "id": "rave-l-003",
-      "filename": "rave-l/abanico-003.jpg",
-      "category": "rave-l"
+      "id": "l-dark-001",
+      "filename": "l-dark/abanico-001.jpg",
+      "category": "l-dark"
     },
     {
-      "id": "medium-001",
-      "filename": "medium/abanico-001.jpg",
-      "category": "medium"
+      "id": "m-glitter-001",
+      "filename": "m-glitter/abanico-001.jpg",
+      "category": "m-glitter"
     },
     {
-      "id": "medium-002",
-      "filename": "medium/abanico-002.jpg",
-      "category": "medium"
+      "id": "m-basic-001",
+      "filename": "m-basic/abanico-001.jpg",
+      "category": "m-basic"
     },
     {
-      "id": "medium-003",
-      "filename": "medium/abanico-003.jpg",
-      "category": "medium"
+      "id": "porta-abanico-xl-l-001",
+      "filename": "porta-abanico-xl-l/porta-001.jpg",
+      "category": "porta-abanico-xl-l"
     },
     {
-      "id": "personalizados-001",
-      "filename": "personalizados/abanico-001.jpg",
-      "category": "personalizados"
-    },
-    {
-      "id": "personalizados-002",
-      "filename": "personalizados/abanico-002.jpg",
-      "category": "personalizados"
-    },
-    {
-      "id": "personalizados-003",
-      "filename": "personalizados/abanico-003.jpg",
-      "category": "personalizados"
+      "id": "porta-abanico-m-001",
+      "filename": "porta-abanico-m/porta-001.jpg",
+      "category": "porta-abanico-m"
     }
   ]
 }
