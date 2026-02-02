@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Guia del Admin - Cool Energy Abanicos</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #111111;
+      --bg-elevated: #1a1a1a;
+      --bg-card: #141414;
+      --neon-magenta: #ff00ff;
+      --neon-cyan: #00ffff;
+      --neon-pink: #ff1493;
+      --neon-purple: #9d4edd;
+      --neon-blue: #00d4ff;
+      --neon-green: #39ff14;
+      --text-primary: #f0f0f0;
+      --text-secondary: #a0a0a0;
+      --text-muted: #666666;
+      --gradient-neon: linear-gradient(90deg, var(--neon-magenta), var(--neon-cyan));
+      --gradient-purple: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+      --glow-magenta: 0 0 20px rgba(255, 0, 255, 0.5), 0 0 40px rgba(255, 0, 255, 0.3);
+      --glow-cyan: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 40px rgba(0, 255, 255, 0.3);
+      --glow-pink: 0 0 20px rgba(255, 20, 147, 0.5);
+      --font-display: 'Quicksand', 'Comfortaa', sans-serif;
+      --font-body: 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      --transition-base: 0.3s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* === HEADER === */
+    .guide-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .guide-header .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .guide-header .logo-link img {
+      height: 36px;
+      width: auto;
+    }
+
+    .guide-header .logo-link span {
+      font-size: 0.8rem;
+      color: var(--neon-cyan);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .guide-header .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.25rem;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: var(--transition-base);
+    }
+
+    .guide-header .back-btn:hover {
+      background: var(--gradient-purple);
+      border-color: transparent;
+      color: white;
+    }
+
+    /* === HERO === */
+    .guide-hero {
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(157, 78, 221, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .guide-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .guide-hero h1 .highlight {
+      background: var(--gradient-neon);
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .guide-hero p {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* === LAYOUT === */
+    .guide-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      max-width: 1200px;
+      margin: 0 auto;
+      min-height: calc(100vh - 200px);
+    }
+
+    /* === SIDEBAR NAV === */
+    .guide-sidebar {
+      position: sticky;
+      top: 65px;
+      height: calc(100vh - 65px);
+      overflow-y: auto;
+      padding: 2rem 1.5rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      background: var(--bg-secondary);
+    }
+
+    .guide-sidebar::-webkit-scrollbar { width: 4px; }
+    .guide-sidebar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 2px; }
+
+    .sidebar-group { margin-bottom: 2rem; }
+
+    .sidebar-group h3 {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--neon-cyan);
+      margin-bottom: 0.75rem;
+      padding-left: 0.5rem;
+    }
+
+    .sidebar-link {
+      display: block;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: var(--transition-base);
+      margin-bottom: 2px;
+    }
+
+    .sidebar-link:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+    }
+
+    .sidebar-link.active {
+      background: rgba(157, 78, 221, 0.15);
+      color: var(--neon-pink);
+      font-weight: 600;
+    }
+
+    /* === CONTENT === */
+    .guide-content {
+      padding: 3rem;
+      max-width: 800px;
+    }
+
+    .guide-section {
+      margin-bottom: 4rem;
+      scroll-margin-top: 80px;
+    }
+
+    .guide-section h2 {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid transparent;
+      border-image: var(--gradient-neon) 1;
+    }
+
+    .guide-section h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      color: var(--neon-cyan);
+    }
+
+    .guide-section p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .guide-section strong {
+      color: var(--text-primary);
+    }
+
+    /* === CARDS (steps, tips, etc) === */
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition-base);
+    }
+
+    .step-card:hover {
+      border-color: rgba(157, 78, 221, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .step-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-neon);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .step-card:hover::before { opacity: 1; }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--gradient-purple);
+      border-radius: 50%;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .step-card h4 {
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 0;
+    }
+
+    /* === TABLE === */
+    .guide-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+    }
+
+    .guide-table th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      background: var(--bg-elevated);
+      color: var(--neon-cyan);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid rgba(157, 78, 221, 0.3);
+    }
+
+    .guide-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+    }
+
+    .guide-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .guide-table td:first-child {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    /* === CODE / URL === */
+    .url-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--bg-elevated);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1.25rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.9rem;
+      color: var(--neon-green);
+      margin: 1rem 0;
+      word-break: break-all;
+    }
+
+    .url-box svg {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      stroke: var(--neon-cyan);
+    }
+
+    /* === TIP BOX === */
+    .tip-box {
+      background: rgba(0, 255, 255, 0.04);
+      border-left: 4px solid var(--neon-cyan);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+    }
+
+    .tip-box .tip-label {
+      display: inline-block;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      margin-bottom: 0.25rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .tip-box p { color: var(--text-secondary); margin-bottom: 0; }
+
+    .warning-box {
+      background: rgba(255, 165, 0, 0.05);
+      border-left: 4px solid orange;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+    }
+
+    .warning-box .tip-label { color: orange; }
+    .warning-box p { color: var(--text-secondary); margin-bottom: 0; }
+
+    /* === TABS VISUAL === */
+    .tabs-visual {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .tab-badge {
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+      transition: var(--transition-base);
+      cursor: default;
+    }
+
+    .tab-badge:hover {
+      background: var(--gradient-purple);
+      border-color: transparent;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--glow-pink);
+    }
+
+    .tab-badge.active-demo {
+      background: var(--gradient-purple);
+      border-color: transparent;
+      color: white;
+    }
+
+    /* === FIELD LIST === */
+    .field-list {
+      list-style: none;
+      margin: 1rem 0;
+    }
+
+    .field-list li {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .field-list li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--neon-purple);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 0.5rem;
+    }
+
+    .field-name {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* === CATEGORY GRID === */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .cat-item {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      text-align: center;
+      transition: var(--transition-base);
+    }
+
+    .cat-item:hover {
+      border-color: rgba(157, 78, 221, 0.3);
+      transform: translateY(-3px);
+    }
+
+    .cat-item .cat-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .cat-item .cat-size {
+      font-size: 0.8rem;
+      color: var(--neon-cyan);
+    }
+
+    /* === FAQ (troubleshooting) === */
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+    }
+
+    .faq-item summary {
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition-base);
+    }
+
+    .faq-item summary::-webkit-details-marker { display: none; }
+
+    .faq-item summary::after {
+      content: '+';
+      font-size: 1.5rem;
+      color: var(--neon-cyan);
+      transition: var(--transition-base);
+      flex-shrink: 0;
+    }
+
+    .faq-item[open] summary::after { content: '-'; }
+    .faq-item[open] { border-color: rgba(157, 78, 221, 0.3); }
+
+    .faq-item .faq-answer {
+      padding: 0 1.25rem 1rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    /* === FOOTER === */
+    .guide-footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* === MOBILE === */
+    @media (max-width: 900px) {
+      .guide-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .guide-sidebar {
+        position: relative;
+        top: 0;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .sidebar-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0;
+        align-items: center;
+      }
+
+      .sidebar-group h3 {
+        width: 100%;
+        margin-bottom: 0.25rem;
+      }
+
+      .sidebar-link {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.8rem;
+        margin-bottom: 0;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: var(--radius-full);
+      }
+
+      .guide-content {
+        padding: 2rem 1.25rem;
+      }
+
+      .guide-hero {
+        padding: 3rem 1.5rem 2.5rem;
+      }
+
+      .cat-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .guide-header {
+        padding: 0.75rem 1rem;
+      }
+
+      .guide-header .logo-link span {
+        display: none;
+      }
+
+      .cat-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="guide-header">
+    <a href="/" class="logo-link">
+      <img src="images/logo-coolenergy-wide.png" alt="Cool Energy Abanicos" onerror="this.style.display='none'">
+      <span>Guia Admin</span>
+    </a>
+    <a href="/admin-abanicos-abm" class="back-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Ir al Panel
+    </a>
+  </header>
+
+  <!-- Hero -->
+  <section class="guide-hero">
+    <h1>Guia del <span class="highlight">Panel Admin</span></h1>
+    <p>Todo lo que necesitas saber para gestionar el contenido, las imagenes y la informacion de Cool Energy Abanicos.</p>
+  </section>
+
+  <!-- Layout -->
+  <div class="guide-layout">
+
+    <!-- Sidebar -->
+    <nav class="guide-sidebar">
+      <div class="sidebar-group">
+        <h3>Primeros pasos</h3>
+        <a href="#acceso" class="sidebar-link active">Acceder al panel</a>
+        <a href="#navegacion" class="sidebar-link">Navegacion</a>
+      </div>
+      <div class="sidebar-group">
+        <h3>Tabs de edicion</h3>
+        <a href="#tab-imagenes" class="sidebar-link">Imagenes</a>
+        <a href="#tab-hero" class="sidebar-link">Hero</a>
+        <a href="#tab-categorias" class="sidebar-link">Categorias</a>
+        <a href="#tab-nosotros" class="sidebar-link">Nosotros</a>
+        <a href="#tab-faq" class="sidebar-link">FAQ</a>
+        <a href="#tab-contacto" class="sidebar-link">Contacto</a>
+        <a href="#tab-footer" class="sidebar-link">Footer</a>
+        <a href="#tab-descripciones" class="sidebar-link">Descripciones</a>
+      </div>
+      <div class="sidebar-group">
+        <h3>Referencia</h3>
+        <a href="#categorias-ref" class="sidebar-link">Categorias de producto</a>
+        <a href="#tips" class="sidebar-link">Consejos</a>
+        <a href="#problemas" class="sidebar-link">Problemas comunes</a>
+      </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="guide-content">
+
+      <!-- ACCESO -->
+      <section id="acceso" class="guide-section">
+        <h2>Acceder al Panel</h2>
+
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h4>Abri el navegador y anda a la direccion del admin</h4>
+          <div class="url-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            https://coolenergy-uy.up.railway.app/admin-abanicos-abm
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h4>Ingresa la contrasena de administrador</h4>
+          <p>Escribi la contrasena en el campo de texto y hace clic en <strong>Entrar</strong>.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h4>Listo, ya estas en el panel</h4>
+          <p>Si la contrasena es correcta, vas a ver todas las opciones de edicion organizadas en pestanas.</p>
+        </div>
+
+        <div class="warning-box">
+          <span class="tip-label">Atencion</span>
+          <p>Despues de 5 intentos fallidos de login, vas a tener que esperar 15 minutos antes de poder intentar de nuevo.</p>
+        </div>
+      </section>
+
+      <!-- NAVEGACION -->
+      <section id="navegacion" class="guide-section">
+        <h2>Navegacion por Tabs</h2>
+        <p>El panel tiene <strong>8 pestanas</strong> en la parte superior. Hace clic en cualquiera para cambiar de seccion:</p>
+
+        <div class="tabs-visual">
+          <span class="tab-badge active-demo">Imagenes</span>
+          <span class="tab-badge">Hero</span>
+          <span class="tab-badge">Categorias</span>
+          <span class="tab-badge">Nosotros</span>
+          <span class="tab-badge">FAQ</span>
+          <span class="tab-badge">Contacto</span>
+          <span class="tab-badge">Footer</span>
+          <span class="tab-badge">Descripciones</span>
+        </div>
+
+        <table class="guide-table">
+          <thead>
+            <tr><th>Tab</th><th>Que edita</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Imagenes</td><td>Subir y gestionar fotos de productos</td></tr>
+            <tr><td>Hero</td><td>Titulo grande y botones del inicio del sitio</td></tr>
+            <tr><td>Categorias</td><td>Nombres y descripciones de cada tipo de abanico</td></tr>
+            <tr><td>Nosotros</td><td>Seccion "Sobre nosotros"</td></tr>
+            <tr><td>FAQ</td><td>Preguntas frecuentes</td></tr>
+            <tr><td>Contacto</td><td>Telefono, Instagram, WhatsApp, pickup</td></tr>
+            <tr><td>Footer</td><td>Pie de pagina y metodos de pago</td></tr>
+            <tr><td>Descripciones</td><td>Textos descriptivos para cada imagen de la galeria</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- TAB: IMAGENES -->
+      <section id="tab-imagenes" class="guide-section">
+        <h2>Tab: Imagenes</h2>
+
+        <h3>Subir una imagen nueva</h3>
+
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h4>Selecciona la categoria del producto</h4>
+          <p>Hace clic en uno de los 10 botones de categoria (ej: "XL Reflective", "L Dark", etc.)</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h4>Subi la imagen</h4>
+          <p>Hace clic en el area de upload o arrastra la imagen directamente.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h4>Verifica el preview</h4>
+          <p>La imagen aparece como preview. Si no es la correcta, hace clic en la X para quitarla.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <h4>Hace clic en "Subir a Cloudinary"</h4>
+          <p>La barra de progreso muestra el avance. Espera a que llegue al 100%.</p>
+        </div>
+
+        <h3>Requisitos de imagen</h3>
+        <table class="guide-table">
+          <thead><tr><th>Requisito</th><th>Detalle</th></tr></thead>
+          <tbody>
+            <tr><td>Formato</td><td>JPG, PNG o WEBP</td></tr>
+            <tr><td>Peso maximo</td><td>10 MB</td></tr>
+            <tr><td>Resolucion ideal</td><td>1200 x 1200 px</td></tr>
+            <tr><td>Aspecto</td><td>Cuadrado funciona mejor</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Gestionar la galeria</h3>
+        <p>Debajo del upload hay una galeria con todas las imagenes. Usa el <strong>filtro de categoria</strong> para ver solo un tipo de producto.</p>
+        <p>Para <strong>eliminar</strong> una imagen, hace clic en el boton X de la imagen y confirma la eliminacion.</p>
+      </section>
+
+      <!-- TAB: HERO -->
+      <section id="tab-hero" class="guide-section">
+        <h2>Tab: Hero</h2>
+        <p>El "Hero" es la seccion grande que aparece al abrir el sitio, con el titulo principal y los botones de accion.</p>
+
+        <h3>Campos editables</h3>
+        <ul class="field-list">
+          <li><span class="field-name">Titulo (inicio)</span> &mdash; Primera parte del titulo (ej: "Desmayate de la")</li>
+          <li><span class="field-name">Palabra destacada</span> &mdash; La palabra resaltada en color (ej: "emocion")</li>
+          <li><span class="field-name">Titulo (final)</span> &mdash; Ultima parte (ej: "y no del calor")</li>
+          <li><span class="field-name">Tagline</span> &mdash; El texto mas chico debajo del titulo</li>
+          <li><span class="field-name">Boton primario</span> &mdash; Texto y enlace del boton principal (ej: "Ver catalogo" &rarr; #catalogo)</li>
+          <li><span class="field-name">Boton secundario</span> &mdash; Texto y enlace del segundo boton</li>
+        </ul>
+
+        <div class="tip-box">
+          <span class="tip-label">Como guardar</span>
+          <p>Despues de editar cualquier campo, hace clic en <strong>Guardar Hero</strong>. Va a aparecer un mensaje verde confirmando que se guardo.</p>
+        </div>
+      </section>
+
+      <!-- TAB: CATEGORIAS -->
+      <section id="tab-categorias" class="guide-section">
+        <h2>Tab: Categorias</h2>
+        <p>Aca se editan los nombres y descripciones de las 10 categorias de productos.</p>
+
+        <h3>Para cada categoria podes editar</h3>
+        <ul class="field-list">
+          <li><span class="field-name">Nombre</span> &mdash; Como se muestra en el sitio (ej: "XL Reflective")</li>
+          <li><span class="field-name">Descripcion</span> &mdash; Texto corto que describe el tipo de abanico</li>
+          <li><span class="field-name">Tag</span> &mdash; Etiqueta resumida (ej: "66cm - Festival")</li>
+        </ul>
+        <p>Hace clic en cada categoria para expandirla y ver los campos. Al terminar, hace clic en <strong>Guardar Categorias</strong>.</p>
+      </section>
+
+      <!-- TAB: NOSOTROS -->
+      <section id="tab-nosotros" class="guide-section">
+        <h2>Tab: Nosotros</h2>
+        <p>Edita la seccion "Sobre nosotros" del sitio.</p>
+
+        <h3>Campos editables</h3>
+        <ul class="field-list">
+          <li><span class="field-name">Titulo</span> &mdash; Titulo de la seccion</li>
+          <li><span class="field-name">Palabra destacada</span> &mdash; Palabra resaltada en color</li>
+          <li><span class="field-name">Parrafo 1</span> &mdash; Primer bloque de texto</li>
+          <li><span class="field-name">Parrafo 2</span> &mdash; Segundo bloque de texto</li>
+          <li><span class="field-name">URL de imagen</span> &mdash; Direccion web de la imagen que acompana el texto</li>
+          <li><span class="field-name">Badges (4)</span> &mdash; Las etiquetas que aparecen debajo (ej: "Hecho en Uruguay", "Material Premium")</li>
+        </ul>
+        <p>Hace clic en <strong>Guardar Nosotros</strong> para aplicar los cambios.</p>
+      </section>
+
+      <!-- TAB: FAQ -->
+      <section id="tab-faq" class="guide-section">
+        <h2>Tab: FAQ</h2>
+        <p>Las preguntas frecuentes se muestran como acordeon en el sitio (clic para expandir la respuesta).</p>
+
+        <h3>Editar una pregunta existente</h3>
+        <p>Modifica el texto de la <strong>Pregunta</strong> o la <strong>Respuesta</strong> directamente en los campos de texto.</p>
+
+        <h3>Agregar una nueva pregunta</h3>
+        <p>Hace clic en <strong>+ Agregar pregunta</strong>. Se agrega un par vacio al final de la lista. Completa la pregunta y la respuesta.</p>
+
+        <h3>Eliminar una pregunta</h3>
+        <p>Hace clic en el boton <strong>X</strong> (Eliminar) al lado de la pregunta que queres sacar.</p>
+
+        <p>Cuando termines, hace clic en <strong>Guardar FAQ</strong>.</p>
+      </section>
+
+      <!-- TAB: CONTACTO -->
+      <section id="tab-contacto" class="guide-section">
+        <h2>Tab: Contacto</h2>
+        <p>Aca se edita toda la informacion de contacto que aparece en el sitio.</p>
+
+        <h3>Campos editables</h3>
+        <ul class="field-list">
+          <li><span class="field-name">Titulo CTA</span> &mdash; Titulo de la seccion de contacto</li>
+          <li><span class="field-name">Palabra destacada</span> &mdash; Palabra resaltada</li>
+          <li><span class="field-name">Subtitulo</span> &mdash; Texto debajo del titulo</li>
+          <li><span class="field-name">Telefono</span> &mdash; Numero visible en el sitio</li>
+          <li><span class="field-name">Instagram handle</span> &mdash; Nombre de usuario (ej: @coolenergy.uy)</li>
+          <li><span class="field-name">Instagram URL</span> &mdash; Link al perfil de Instagram</li>
+          <li><span class="field-name">Numero WhatsApp</span> &mdash; Numero completo con codigo de pais (ej: 59895192300)</li>
+          <li><span class="field-name">Pickup - nombre</span> &mdash; Nombre del punto de retiro</li>
+          <li><span class="field-name">Pickup - direccion</span> &mdash; Calle y numero</li>
+          <li><span class="field-name">Pickup - ciudad</span> &mdash; Ciudad</li>
+          <li><span class="field-name">Pickup - URL mapa</span> &mdash; Link a Google Maps</li>
+        </ul>
+        <p>Hace clic en <strong>Guardar Contacto</strong> para aplicar.</p>
+      </section>
+
+      <!-- TAB: FOOTER -->
+      <section id="tab-footer" class="guide-section">
+        <h2>Tab: Footer</h2>
+        <p>El footer es el pie de pagina del sitio.</p>
+
+        <h3>Campos editables</h3>
+        <ul class="field-list">
+          <li><span class="field-name">Descripcion</span> &mdash; Texto corto de la marca que aparece en el footer</li>
+          <li><span class="field-name">Metodos de pago</span> &mdash; Lista separada por coma (ej: "Mercado Pago, Transferencia, Efectivo")</li>
+        </ul>
+        <p>Hace clic en <strong>Guardar Footer</strong>.</p>
+      </section>
+
+      <!-- TAB: DESCRIPCIONES -->
+      <section id="tab-descripciones" class="guide-section">
+        <h2>Tab: Descripciones</h2>
+        <p>Esta seccion permite agregar textos descriptivos a cada imagen de la galeria.</p>
+
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h4>Se cargan todas las imagenes</h4>
+          <p>Al abrir esta tab, se muestran todas las imagenes del sitio en un grid.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h4>Escribi una descripcion para cada imagen</h4>
+          <p>Debajo de cada imagen hay un campo de texto. Ej: "Abanico XL reflective con diseno holografico".</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h4>Guarda todo</h4>
+          <p>Hace clic en <strong>Guardar todas las descripciones</strong>. Las descripciones aparecen en la galeria publica debajo de cada foto.</p>
+        </div>
+      </section>
+
+      <!-- CATEGORIAS REF -->
+      <section id="categorias-ref" class="guide-section">
+        <h2>Categorias de Productos</h2>
+        <p>El sitio tiene 10 categorias de productos. Cada una corresponde a una carpeta en Cloudinary.</p>
+
+        <div class="cat-grid">
+          <div class="cat-item"><div class="cat-name">XL Reflective</div><div class="cat-size">66cm</div></div>
+          <div class="cat-item"><div class="cat-name">XL Psicodelicos</div><div class="cat-size">66cm</div></div>
+          <div class="cat-item"><div class="cat-name">XL Glow</div><div class="cat-size">66cm</div></div>
+          <div class="cat-item"><div class="cat-name">XL Holographic</div><div class="cat-size">66cm</div></div>
+          <div class="cat-item"><div class="cat-name">L Electric</div><div class="cat-size">50cm</div></div>
+          <div class="cat-item"><div class="cat-name">L Dark</div><div class="cat-size">50cm</div></div>
+          <div class="cat-item"><div class="cat-name">M Glitter</div><div class="cat-size">40cm</div></div>
+          <div class="cat-item"><div class="cat-name">M Basic</div><div class="cat-size">40cm</div></div>
+          <div class="cat-item"><div class="cat-name">Porta Abanico XL/L</div><div class="cat-size">Accesorio</div></div>
+          <div class="cat-item"><div class="cat-name">Porta Abanico M</div><div class="cat-size">Accesorio</div></div>
+        </div>
+      </section>
+
+      <!-- TIPS -->
+      <section id="tips" class="guide-section">
+        <h2>Consejos Generales</h2>
+
+        <div class="tip-box">
+          <span class="tip-label">Cambios inmediatos</span>
+          <p>Despues de guardar, los visitantes del sitio ven el contenido nuevo al recargar la pagina.</p>
+        </div>
+
+        <div class="tip-box">
+          <span class="tip-label">No se pueden deshacer</span>
+          <p>Si te equivocas, simplemente edita de nuevo y guarda. No hay boton de "deshacer".</p>
+        </div>
+
+        <div class="tip-box">
+          <span class="tip-label">Sesion</span>
+          <p>La sesion dura 24 horas. Si estuviste mucho tiempo sin usar el panel, es posible que te pida la contrasena de nuevo. Usa el boton <strong>Salir</strong> en la esquina superior derecha para cerrar sesion.</p>
+        </div>
+
+        <div class="tip-box">
+          <span class="tip-label">Imagenes en la nube</span>
+          <p>Las fotos se guardan en Cloudinary (nube), no en el servidor. Esto hace que carguen rapido desde cualquier parte del mundo.</p>
+        </div>
+
+        <h3>Optimizacion de imagenes</h3>
+        <table class="guide-table">
+          <thead><tr><th>Recomendacion</th><th>Detalle</th></tr></thead>
+          <tbody>
+            <tr><td>Formato</td><td>Preferir WEBP o JPG</td></tr>
+            <tr><td>Resolucion</td><td>1200 x 1200 px maximo</td></tr>
+            <tr><td>Peso</td><td>Menos de 2 MB ideal</td></tr>
+            <tr><td>Aspecto</td><td>Cuadrado funciona mejor para el grid</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- PROBLEMAS -->
+      <section id="problemas" class="guide-section">
+        <h2>Problemas Comunes</h2>
+
+        <details class="faq-item">
+          <summary>"Token invalido o expirado"</summary>
+          <div class="faq-answer">La sesion expiro. Recarga la pagina y volve a ingresar la contrasena.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Las imagenes no se suben</summary>
+          <div class="faq-answer">
+            Verifica que el archivo sea JPG, PNG o WebP. El archivo no puede pesar mas de 10 MB. Asegurate de haber seleccionado una categoria antes de subir.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>No veo los cambios en el sitio publico</summary>
+          <div class="faq-answer">
+            Recarga la pagina del sitio con <strong>Ctrl+F5</strong> (Windows) o <strong>Cmd+Shift+R</strong> (Mac). Los navegadores a veces guardan una version vieja en cache.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>El panel no carga</summary>
+          <div class="faq-answer">
+            Verifica que estas usando la direccion correcta: <strong>/admin-abanicos-abm</strong>. La URL completa es <em>https://coolenergy-uy.up.railway.app/admin-abanicos-abm</em>.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>No puedo hacer login</summary>
+          <div class="faq-answer">
+            Verifica que la contrasena sea correcta. Si hubo muchos intentos fallidos, espera 15 minutos e intenta de nuevo.
+          </div>
+        </details>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="guide-footer">
+    <p>Cool Energy Abanicos &mdash; Guia del Panel de Administracion &mdash; 2026</p>
+  </footer>
+
+  <!-- Active sidebar link on scroll -->
+  <script>
+    const sections = document.querySelectorAll('.guide-section');
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+    function updateActive() {
+      let current = '';
+      sections.forEach(s => {
+        const top = s.getBoundingClientRect().top;
+        if (top < 150) current = s.id;
+      });
+      sidebarLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+      });
+    }
+
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+  </script>
+
+</body>
+</html>
