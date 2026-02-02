@@ -1,10 +1,12 @@
 # Cool Energy Abanicos - robots.txt
 User-agent: *
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# Disallow admin and API
+Disallow: /admin-abanicos-abm
+Disallow: /api/
 
 # Sitemap
-Sitemap: https://web-production-8584.up.railway.app/sitemap.xml
-
-# Disallow admin
-Disallow: /admin.html
-Disallow: /api/
+Sitemap: https://coolenergy-uy.up.railway.app/sitemap.xml

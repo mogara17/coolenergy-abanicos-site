@@ -57,6 +57,11 @@ if (config.cloudinary.cloudName && config.cloudinary.apiKey && config.cloudinary
   console.warn('WARNING: Cloudinary credentials not configured. Set environment variables.');
 }
 
+// LLM discovery: serve llms.txt at .well-known path
+app.get('/.well-known/llms.txt', (req, res) => {
+  res.sendFile(path.join(__dirname, 'llms.txt'));
+});
+
 // Health check endpoint
 app.get(config.server.healthPath, (req, res) => {
   res.status(200).json({

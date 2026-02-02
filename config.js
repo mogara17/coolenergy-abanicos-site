@@ -20,7 +20,8 @@ module.exports = {
   // ============================================
   site: {
     name: 'Cool Energy Abanicos',
-    url: process.env.SITE_URL || 'https://web-production-8584.up.railway.app',
+    url: process.env.SITE_URL || 'https://coolenergy-uy.up.railway.app',
+    canonicalDomain: 'https://coolenergy.uy', // Dominio definitivo (pendiente de compra)
     description: 'Abanicos premium para festivales y raves. Hechos en Uruguay con amor.',
     locale: 'es_UY',
     themeColor: '#0a0a0a'
