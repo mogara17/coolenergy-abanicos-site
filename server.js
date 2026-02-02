@@ -10,6 +10,7 @@ const bcrypt = require('bcryptjs');
 
 // Cargar configuracion centralizada
 const config = require('./config');
+const contentStore = require('./content-store');
 
 const app = express();
 
@@ -413,6 +414,54 @@ function extractCategory(publicId) {
   }
   return 'sin-categoria';
 }
+
+// ================== CONTENT API ==================
+
+// GET all content (public)
+app.get('/api/content', (req, res) => {
+  try {
+    const content = contentStore.getAll();
+    res.json({ success: true, content });
+  } catch (error) {
+    console.error('Error getting content:', error);
+    res.status(500).json({ success: false, error: 'Error obteniendo contenido' });
+  }
+});
+
+// GET single section (public)
+app.get('/api/content/:section', (req, res) => {
+  const { section } = req.params;
+  if (!contentStore.VALID_SECTIONS.includes(section)) {
+    return res.status(400).json({ success: false, error: 'Seccion invalida' });
+  }
+  try {
+    const data = contentStore.getSection(section);
+    res.json({ success: true, section, data });
+  } catch (error) {
+    console.error('Error getting section:', error);
+    res.status(500).json({ success: false, error: 'Error obteniendo seccion' });
+  }
+});
+
+// PUT update section (auth required)
+app.put('/api/content/:section', authenticateToken, (req, res) => {
+  const { section } = req.params;
+  if (!contentStore.VALID_SECTIONS.includes(section)) {
+    return res.status(400).json({ success: false, error: 'Seccion invalida' });
+  }
+  try {
+    const sanitized = contentStore.sanitize(req.body.data);
+    const result = contentStore.updateSection(section, sanitized);
+    if (result.success) {
+      res.json({ success: true, message: 'Contenido actualizado' });
+    } else {
+      res.status(400).json(result);
+    }
+  } catch (error) {
+    console.error('Error updating content:', error);
+    res.status(500).json({ success: false, error: 'Error actualizando contenido' });
+  }
+});
 
 // Admin route (usando config.server.adminPath)
 app.get(config.server.adminPath, (req, res) => {

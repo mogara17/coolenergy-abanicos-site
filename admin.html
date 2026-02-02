@@ -50,7 +50,7 @@
     .container {
       position: relative;
       z-index: 1;
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
@@ -539,6 +539,185 @@
       margin-top: 0.25rem;
     }
 
+    /* Tabs */
+    .admin-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .admin-tab {
+      padding: 8px 16px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .admin-tab:hover {
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+    }
+
+    .admin-tab.active {
+      background: rgba(0, 255, 255, 0.1);
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+      font-weight: 600;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* Content editor forms */
+    textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 1rem;
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--neon-cyan);
+    }
+
+    .btn-save {
+      display: inline-block;
+      width: auto;
+      padding: 12px 32px;
+      margin-top: 1rem;
+    }
+
+    .btn-danger {
+      background: var(--neon-pink);
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.85rem;
+    }
+
+    .btn-add {
+      background: rgba(0,255,255,0.15);
+      border: 1px dashed var(--neon-cyan);
+      padding: 10px 20px;
+      border-radius: 8px;
+      color: var(--neon-cyan);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .editor-item {
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .editor-item .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .editor-item .item-header h4 {
+      color: var(--neon-magenta);
+      font-size: 0.95rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      padding: 14px 24px;
+      border-radius: 10px;
+      color: white;
+      font-family: inherit;
+      font-weight: 600;
+      z-index: 1000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success {
+      background: rgba(0, 255, 255, 0.9);
+      color: var(--bg-primary);
+    }
+
+    .toast.error {
+      background: rgba(255, 20, 147, 0.9);
+    }
+
+    .img-preview-small {
+      max-width: 200px;
+      max-height: 150px;
+      border-radius: 8px;
+      margin-top: 0.5rem;
+      object-fit: cover;
+    }
+
+    .desc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .desc-item {
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      padding: 0.75rem;
+    }
+
+    .desc-item img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+    }
+
+    .desc-item textarea {
+      min-height: 50px;
+      font-size: 0.85rem;
+    }
+
     @media (max-width: 600px) {
       .category-select {
         grid-template-columns: 1fr;
@@ -547,6 +726,16 @@
         grid-template-columns: repeat(3, 1fr);
       }
       .analytics-grid {
+        grid-template-columns: 1fr;
+      }
+      .admin-tabs {
+        gap: 0.35rem;
+      }
+      .admin-tab {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+      }
+      .form-row {
         grid-template-columns: 1fr;
       }
     }
@@ -616,120 +805,291 @@
         </div>
       </div>
 
-      <!-- Upload Card -->
+      <!-- Content Editor Tabs -->
       <div class="card">
-        <h3>Subir nuevo abanico</h3>
-
-        <label>1. Selecciona la categoria:</label>
-        <div class="category-select" id="categorySelect">
-          <div class="category-group-label">XL — 66cm</div>
-          <div class="category-option" data-category="xl-reflective">
-            <span>XL Reflective</span>
-          </div>
-          <div class="category-option" data-category="xl-psicodelicos">
-            <span>XL Psicodélicos</span>
-          </div>
-          <div class="category-option" data-category="xl-glow">
-            <span>XL Glow</span>
-          </div>
-          <div class="category-option" data-category="xl-holographic">
-            <span>XL Holographic</span>
-          </div>
-
-          <div class="category-group-label">L — 50cm</div>
-          <div class="category-option" data-category="l-electric">
-            <span>L Electric</span>
-          </div>
-          <div class="category-option" data-category="l-dark">
-            <span>L Dark</span>
-          </div>
-
-          <div class="category-group-label">M — 40cm</div>
-          <div class="category-option" data-category="m-glitter">
-            <span>M Glitter</span>
-          </div>
-          <div class="category-option" data-category="m-basic">
-            <span>M Basic</span>
-          </div>
-
-          <div class="category-group-label">Accesorios</div>
-          <div class="category-option" data-category="porta-abanico-xl-l">
-            <span>Porta Abanico XL/L</span>
-          </div>
-          <div class="category-option" data-category="porta-abanico-m">
-            <span>Porta Abanico M</span>
-          </div>
+        <h3>Editar contenido del sitio</h3>
+        <div class="admin-tabs" id="adminTabs">
+          <button class="admin-tab active" data-tab="images">Imagenes</button>
+          <button class="admin-tab" data-tab="hero">Hero</button>
+          <button class="admin-tab" data-tab="categories">Categorias</button>
+          <button class="admin-tab" data-tab="about">Nosotros</button>
+          <button class="admin-tab" data-tab="faq">FAQ</button>
+          <button class="admin-tab" data-tab="contact">Contacto</button>
+          <button class="admin-tab" data-tab="footer">Footer</button>
+          <button class="admin-tab" data-tab="descriptions">Descripciones</button>
         </div>
 
-        <label>2. Selecciona la imagen:</label>
-        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" style="display: none;">
-        <div class="upload-area disabled" id="uploadArea">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-            <polyline points="17 8 12 3 7 8"/>
-            <line x1="12" y1="3" x2="12" y2="15"/>
-          </svg>
-          <p id="uploadAreaText">Primero selecciona una categoria</p>
-          <p><small>JPG, PNG, WEBP - Max 10MB</small></p>
-        </div>
+        <!-- Tab: Imagenes (existing gallery + upload) -->
+        <div class="tab-panel active" data-tab="images" id="tabImages">
+          <h4 style="color: var(--neon-cyan); margin-bottom: 1rem;">Subir nuevo abanico</h4>
 
-        <!-- Image Preview -->
-        <div class="image-preview" id="imagePreview">
-          <img id="previewImg" src="" alt="Preview">
-          <button class="remove-btn" id="removeBtn" title="Quitar imagen">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M18 6L6 18M6 6l12 12"/>
+          <label>1. Selecciona la categoria:</label>
+          <div class="category-select" id="categorySelect">
+            <div class="category-group-label">XL — 66cm</div>
+            <div class="category-option" data-category="xl-reflective"><span>XL Reflective</span></div>
+            <div class="category-option" data-category="xl-psicodelicos"><span>XL Psicodélicos</span></div>
+            <div class="category-option" data-category="xl-glow"><span>XL Glow</span></div>
+            <div class="category-option" data-category="xl-holographic"><span>XL Holographic</span></div>
+            <div class="category-group-label">L — 50cm</div>
+            <div class="category-option" data-category="l-electric"><span>L Electric</span></div>
+            <div class="category-option" data-category="l-dark"><span>L Dark</span></div>
+            <div class="category-group-label">M — 40cm</div>
+            <div class="category-option" data-category="m-glitter"><span>M Glitter</span></div>
+            <div class="category-option" data-category="m-basic"><span>M Basic</span></div>
+            <div class="category-group-label">Accesorios</div>
+            <div class="category-option" data-category="porta-abanico-xl-l"><span>Porta Abanico XL/L</span></div>
+            <div class="category-option" data-category="porta-abanico-m"><span>Porta Abanico M</span></div>
+          </div>
+
+          <label>2. Selecciona la imagen:</label>
+          <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" style="display: none;">
+          <div class="upload-area disabled" id="uploadArea">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
             </svg>
-          </button>
-          <p class="file-name" id="fileName"></p>
-        </div>
-
-        <!-- Progress Bar -->
-        <div class="progress-container" id="progressContainer">
-          <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
+            <p id="uploadAreaText">Primero selecciona una categoria</p>
+            <p><small>JPG, PNG, WEBP - Max 10MB</small></p>
           </div>
-          <p class="progress-text" id="progressText">Subiendo... 0%</p>
+
+          <div class="image-preview" id="imagePreview">
+            <img id="previewImg" src="" alt="Preview">
+            <button class="remove-btn" id="removeBtn" title="Quitar imagen">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <p class="file-name" id="fileName"></p>
+          </div>
+
+          <div class="progress-container" id="progressContainer">
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            <p class="progress-text" id="progressText">Subiendo... 0%</p>
+          </div>
+
+          <button class="btn upload-btn" id="uploadBtn" disabled>Subir a Cloudinary</button>
+          <div id="successMsg" class="success-msg" style="display: none;">Imagen subida correctamente!</div>
+
+          <hr style="border-color: rgba(255,255,255,0.1); margin: 2rem 0;">
+
+          <h4 style="color: var(--neon-cyan); margin-bottom: 1rem;">Imagenes subidas</h4>
+          <div class="form-group">
+            <label for="filterCategory">Filtrar por categoria</label>
+            <select id="filterCategory">
+              <option value="all">Todas las categorias</option>
+              <optgroup label="XL — 66cm">
+                <option value="xl-reflective">XL Reflective</option>
+                <option value="xl-psicodelicos">XL Psicodélicos</option>
+                <option value="xl-glow">XL Glow</option>
+                <option value="xl-holographic">XL Holographic</option>
+              </optgroup>
+              <optgroup label="L — 50cm">
+                <option value="l-electric">L Electric</option>
+                <option value="l-dark">L Dark</option>
+              </optgroup>
+              <optgroup label="M — 40cm">
+                <option value="m-glitter">M Glitter</option>
+                <option value="m-basic">M Basic</option>
+              </optgroup>
+              <optgroup label="Accesorios">
+                <option value="porta-abanico-xl-l">Porta Abanico XL/L</option>
+                <option value="porta-abanico-m">Porta Abanico M</option>
+              </optgroup>
+            </select>
+          </div>
+          <div id="uploadedImages" class="uploaded-grid">
+            <div class="loading">Cargando imagenes...</div>
+          </div>
         </div>
 
-        <button class="btn upload-btn" id="uploadBtn" disabled>
-          Subir a Cloudinary
-        </button>
-
-        <div id="successMsg" class="success-msg" style="display: none;">
-          Imagen subida correctamente!
+        <!-- Tab: Hero -->
+        <div class="tab-panel" data-tab="hero" id="tabHero">
+          <div class="form-group">
+            <label>Titulo (parte 1)</label>
+            <input type="text" id="heroTitle" placeholder="Desmayate de la">
+          </div>
+          <div class="form-group">
+            <label>Palabra destacada</label>
+            <input type="text" id="heroHighlight" placeholder="emocion">
+          </div>
+          <div class="form-group">
+            <label>Titulo (parte final)</label>
+            <input type="text" id="heroTitleEnd" placeholder="y no del calor">
+          </div>
+          <div class="form-group">
+            <label>Tagline</label>
+            <textarea id="heroTagline" rows="3" placeholder="Abanicos premium para festivales..."></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>CTA Primario - Texto</label>
+              <input type="text" id="heroCtaPrimaryText" placeholder="Ver Abanicos">
+            </div>
+            <div class="form-group">
+              <label>CTA Primario - Href</label>
+              <input type="text" id="heroCtaPrimaryHref" placeholder="#galeria">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>CTA Secundario - Texto</label>
+              <input type="text" id="heroCtaSecondaryText" placeholder="Contactar">
+            </div>
+            <div class="form-group">
+              <label>CTA Secundario - Href</label>
+              <input type="text" id="heroCtaSecondaryHref" placeholder="https://wa.me/...">
+            </div>
+          </div>
+          <button class="btn btn-save" onclick="ContentEditor.saveSection('hero')">Guardar Hero</button>
         </div>
-      </div>
 
-      <!-- Gallery Card -->
-      <div class="card">
-        <h3>Imagenes subidas</h3>
-        <div class="form-group">
-          <label for="filterCategory">Filtrar por categoria</label>
-          <select id="filterCategory">
-            <option value="all">Todas las categorias</option>
-            <optgroup label="XL — 66cm">
-              <option value="xl-reflective">XL Reflective</option>
-              <option value="xl-psicodelicos">XL Psicodélicos</option>
-              <option value="xl-glow">XL Glow</option>
-              <option value="xl-holographic">XL Holographic</option>
-            </optgroup>
-            <optgroup label="L — 50cm">
-              <option value="l-electric">L Electric</option>
-              <option value="l-dark">L Dark</option>
-            </optgroup>
-            <optgroup label="M — 40cm">
-              <option value="m-glitter">M Glitter</option>
-              <option value="m-basic">M Basic</option>
-            </optgroup>
-            <optgroup label="Accesorios">
-              <option value="porta-abanico-xl-l">Porta Abanico XL/L</option>
-              <option value="porta-abanico-m">Porta Abanico M</option>
-            </optgroup>
-          </select>
+        <!-- Tab: Categorias -->
+        <div class="tab-panel" data-tab="categories" id="tabCategories">
+          <div id="categoriesEditor"></div>
+          <button class="btn btn-save" onclick="ContentEditor.saveSection('categories')">Guardar Categorias</button>
         </div>
-        <div id="uploadedImages" class="uploaded-grid">
-          <div class="loading">Cargando imagenes...</div>
+
+        <!-- Tab: Nosotros -->
+        <div class="tab-panel" data-tab="about" id="tabAbout">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Titulo</label>
+              <input type="text" id="aboutTitle" placeholder="Hechos con amor">
+            </div>
+            <div class="form-group">
+              <label>Palabra destacada</label>
+              <input type="text" id="aboutHighlight" placeholder="rave">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Parrafo 1</label>
+            <textarea id="aboutP1" rows="4"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Parrafo 2</label>
+            <textarea id="aboutP2" rows="4"></textarea>
+          </div>
+          <div class="form-group">
+            <label>URL de imagen</label>
+            <input type="text" id="aboutImage" placeholder="images/foto.jpg">
+            <img id="aboutImagePreview" class="img-preview-small" src="" alt="" style="display:none;">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Badge 1</label>
+              <input type="text" id="aboutBadge1" placeholder="Hechos en Uruguay">
+            </div>
+            <div class="form-group">
+              <label>Badge 2</label>
+              <input type="text" id="aboutBadge2" placeholder="Bambu de calidad">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Badge 3</label>
+              <input type="text" id="aboutBadge3" placeholder="Diseños exclusivos">
+            </div>
+            <div class="form-group">
+              <label>Badge 4</label>
+              <input type="text" id="aboutBadge4" placeholder="Super resistentes">
+            </div>
+          </div>
+          <button class="btn btn-save" onclick="ContentEditor.saveSection('about')">Guardar Nosotros</button>
+        </div>
+
+        <!-- Tab: FAQ -->
+        <div class="tab-panel" data-tab="faq" id="tabFaq">
+          <div id="faqEditor"></div>
+          <button class="btn-add" onclick="ContentEditor.addFaqItem()">+ Agregar pregunta</button>
+          <br>
+          <button class="btn btn-save" onclick="ContentEditor.saveSection('faq')">Guardar FAQ</button>
+        </div>
+
+        <!-- Tab: Contacto -->
+        <div class="tab-panel" data-tab="contact" id="tabContact">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Titulo CTA</label>
+              <input type="text" id="contactTitle" placeholder="¿Listo para tu">
+            </div>
+            <div class="form-group">
+              <label>Palabra destacada</label>
+              <input type="text" id="contactHighlight" placeholder="abanico">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Fin del titulo</label>
+              <input type="text" id="contactTitleEnd" placeholder="?">
+            </div>
+            <div class="form-group">
+              <label>Subtitulo</label>
+              <input type="text" id="contactSubtitle" placeholder="Escribinos por WhatsApp...">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Telefono</label>
+              <input type="text" id="contactPhone" placeholder="095 192 300">
+            </div>
+            <div class="form-group">
+              <label>Numero WhatsApp (sin +)</label>
+              <input type="text" id="contactWhatsapp" placeholder="59895192300">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Instagram handle</label>
+              <input type="text" id="contactIgHandle" placeholder="@coolenergy.uy_abanicos">
+            </div>
+            <div class="form-group">
+              <label>Instagram URL</label>
+              <input type="text" id="contactIgUrl" placeholder="https://www.instagram.com/...">
+            </div>
+          </div>
+          <hr style="border-color: rgba(255,255,255,0.1); margin: 1rem 0;">
+          <h4 style="color: var(--text-secondary); margin-bottom: 0.75rem;">Punto de Pickup</h4>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" id="pickupName" placeholder="La Minga">
+            </div>
+            <div class="form-group">
+              <label>Ciudad</label>
+              <input type="text" id="pickupCity" placeholder="Montevideo">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Direccion</label>
+            <input type="text" id="pickupAddress" placeholder="18 de julio 1070...">
+          </div>
+          <div class="form-group">
+            <label>URL Google Maps</label>
+            <input type="text" id="pickupMapUrl" placeholder="https://maps.app.goo.gl/...">
+          </div>
+          <button class="btn btn-save" onclick="ContentEditor.saveSection('contact')">Guardar Contacto</button>
+        </div>
+
+        <!-- Tab: Footer -->
+        <div class="tab-panel" data-tab="footer" id="tabFooter">
+          <div class="form-group">
+            <label>Descripcion del footer</label>
+            <textarea id="footerDesc" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Metodos de pago (separados por coma)</label>
+            <input type="text" id="footerPayments" placeholder="Mercado Pago, Transferencia, Efectivo">
+          </div>
+          <button class="btn btn-save" onclick="ContentEditor.saveSection('footer')">Guardar Footer</button>
+        </div>
+
+        <!-- Tab: Descripciones de galeria -->
+        <div class="tab-panel" data-tab="descriptions" id="tabDescriptions">
+          <p style="color: var(--text-secondary); margin-bottom: 1rem;">Agrega descripciones a las imagenes de la galeria. Se mostraran en las cards del sitio publico.</p>
+          <div class="desc-grid" id="descGrid">
+            <div class="loading">Cargando imagenes...</div>
+          </div>
+          <br>
+          <button class="btn btn-save" onclick="ContentEditor.saveSection('gallery')">Guardar Descripciones</button>
         </div>
       </div>
     </div>
@@ -820,6 +1180,17 @@
 
       async getAnalytics() {
         return this.request('/api/analytics');
+      },
+
+      async getContent() {
+        return this.request('/api/content');
+      },
+
+      async updateContent(section, data) {
+        return this.request(`/api/content/${section}`, {
+          method: 'PUT',
+          body: JSON.stringify({ data })
+        });
       }
     };
 
@@ -1110,7 +1481,8 @@
         await Promise.all([
           this.loadStats(),
           this.loadImages(),
-          this.loadAnalytics()
+          this.loadAnalytics(),
+          ContentEditor.init()
         ]);
       },
 
@@ -1296,6 +1668,338 @@
           }
           console.error('Error deleting image:', error);
           alert('Error eliminando imagen');
+        }
+      }
+    };
+
+    // ================== Toast ==================
+    function showToast(message, type = 'success') {
+      let toast = document.querySelector('.toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.className = 'toast';
+        document.body.appendChild(toast);
+      }
+      toast.textContent = message;
+      toast.className = `toast ${type}`;
+      requestAnimationFrame(() => toast.classList.add('show'));
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // ================== Content Editor ==================
+    const ContentEditor = {
+      content: null,
+
+      async init() {
+        // Tab switching
+        document.querySelectorAll('.admin-tab').forEach(tab => {
+          tab.addEventListener('click', () => this.switchTab(tab.dataset.tab));
+        });
+
+        // Load content
+        try {
+          const result = await ApiService.getContent();
+          if (result.success) {
+            this.content = result.content;
+            this.populateForms();
+          }
+        } catch (err) {
+          console.error('Error loading content:', err);
+        }
+
+        // About image preview
+        const aboutImg = document.getElementById('aboutImage');
+        if (aboutImg) {
+          aboutImg.addEventListener('input', () => {
+            const preview = document.getElementById('aboutImagePreview');
+            if (aboutImg.value) {
+              preview.src = aboutImg.value;
+              preview.style.display = 'block';
+            } else {
+              preview.style.display = 'none';
+            }
+          });
+        }
+      },
+
+      switchTab(tabName) {
+        document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+
+        const tab = document.querySelector(`.admin-tab[data-tab="${tabName}"]`);
+        const panel = document.querySelector(`.tab-panel[data-tab="${tabName}"]`);
+        if (tab) tab.classList.add('active');
+        if (panel) panel.classList.add('active');
+
+        // Load descriptions grid when switching to that tab
+        if (tabName === 'descriptions') {
+          this.loadDescriptionsGrid();
+        }
+      },
+
+      populateForms() {
+        if (!this.content) return;
+
+        // Hero
+        const h = this.content.hero;
+        if (h) {
+          document.getElementById('heroTitle').value = h.title || '';
+          document.getElementById('heroHighlight').value = h.titleHighlight || '';
+          document.getElementById('heroTitleEnd').value = h.titleEnd || '';
+          document.getElementById('heroTagline').value = h.tagline || '';
+          document.getElementById('heroCtaPrimaryText').value = (h.ctaPrimary && h.ctaPrimary.text) || '';
+          document.getElementById('heroCtaPrimaryHref').value = (h.ctaPrimary && h.ctaPrimary.href) || '';
+          document.getElementById('heroCtaSecondaryText').value = (h.ctaSecondary && h.ctaSecondary.text) || '';
+          document.getElementById('heroCtaSecondaryHref').value = (h.ctaSecondary && h.ctaSecondary.href) || '';
+        }
+
+        // Categories
+        this.renderCategoriesEditor();
+
+        // About
+        const a = this.content.about;
+        if (a) {
+          document.getElementById('aboutTitle').value = a.title || '';
+          document.getElementById('aboutHighlight').value = a.titleHighlight || '';
+          document.getElementById('aboutP1').value = (a.paragraphs && a.paragraphs[0]) || '';
+          document.getElementById('aboutP2').value = (a.paragraphs && a.paragraphs[1]) || '';
+          document.getElementById('aboutImage').value = a.image || '';
+          if (a.image) {
+            const preview = document.getElementById('aboutImagePreview');
+            preview.src = a.image;
+            preview.style.display = 'block';
+          }
+          if (a.badges) {
+            a.badges.forEach((b, i) => {
+              const el = document.getElementById(`aboutBadge${i + 1}`);
+              if (el) el.value = b;
+            });
+          }
+        }
+
+        // FAQ
+        this.renderFaqEditor();
+
+        // Contact
+        const c = this.content.contact;
+        if (c) {
+          document.getElementById('contactTitle').value = c.title || '';
+          document.getElementById('contactHighlight').value = c.titleHighlight || '';
+          document.getElementById('contactTitleEnd').value = c.titleEnd || '';
+          document.getElementById('contactSubtitle').value = c.subtitle || '';
+          document.getElementById('contactPhone').value = c.phone || '';
+          document.getElementById('contactWhatsapp').value = c.whatsappNumber || '';
+          document.getElementById('contactIgHandle').value = (c.instagram && c.instagram.handle) || '';
+          document.getElementById('contactIgUrl').value = (c.instagram && c.instagram.url) || '';
+          if (c.pickup) {
+            document.getElementById('pickupName').value = c.pickup.name || '';
+            document.getElementById('pickupCity').value = c.pickup.city || '';
+            document.getElementById('pickupAddress').value = c.pickup.address || '';
+            document.getElementById('pickupMapUrl').value = c.pickup.mapUrl || '';
+          }
+        }
+
+        // Footer
+        const f = this.content.footer;
+        if (f) {
+          document.getElementById('footerDesc').value = f.description || '';
+          document.getElementById('footerPayments').value = (f.paymentMethods || []).join(', ');
+        }
+      },
+
+      renderCategoriesEditor() {
+        const container = document.getElementById('categoriesEditor');
+        const cats = this.content.categories || [];
+        container.innerHTML = cats.map((cat, i) => `
+          <div class="editor-item" data-cat-index="${i}">
+            <div class="item-header">
+              <h4>${UIController.escapeHtml(cat.id)}</h4>
+            </div>
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" class="cat-name" value="${UIController.escapeHtml(cat.name || '')}">
+            </div>
+            <div class="form-group">
+              <label>Descripcion</label>
+              <input type="text" class="cat-desc" value="${UIController.escapeHtml(cat.description || '')}">
+            </div>
+            <div class="form-group">
+              <label>Tag</label>
+              <input type="text" class="cat-tag" value="${UIController.escapeHtml(cat.tag || '')}">
+            </div>
+          </div>
+        `).join('');
+      },
+
+      renderFaqEditor() {
+        const container = document.getElementById('faqEditor');
+        const faqs = this.content.faq || [];
+        container.innerHTML = faqs.map((faq, i) => `
+          <div class="editor-item" data-faq-index="${i}">
+            <div class="item-header">
+              <h4>Pregunta ${i + 1}</h4>
+              <button class="btn-danger" onclick="ContentEditor.removeFaqItem(${i})">Eliminar</button>
+            </div>
+            <div class="form-group">
+              <label>Pregunta</label>
+              <input type="text" class="faq-question" value="${UIController.escapeHtml(faq.question || '')}">
+            </div>
+            <div class="form-group">
+              <label>Respuesta (HTML basico para links)</label>
+              <textarea class="faq-answer" rows="3">${UIController.escapeHtml(faq.answer || '')}</textarea>
+            </div>
+          </div>
+        `).join('');
+      },
+
+      addFaqItem() {
+        if (!this.content.faq) this.content.faq = [];
+        this.content.faq.push({ question: '', answer: '' });
+        this.renderFaqEditor();
+      },
+
+      removeFaqItem(index) {
+        if (!this.content.faq) return;
+        this.content.faq.splice(index, 1);
+        this.renderFaqEditor();
+      },
+
+      collectFormData(section) {
+        switch (section) {
+          case 'hero':
+            return {
+              title: document.getElementById('heroTitle').value,
+              titleHighlight: document.getElementById('heroHighlight').value,
+              titleEnd: document.getElementById('heroTitleEnd').value,
+              tagline: document.getElementById('heroTagline').value,
+              ctaPrimary: {
+                text: document.getElementById('heroCtaPrimaryText').value,
+                href: document.getElementById('heroCtaPrimaryHref').value
+              },
+              ctaSecondary: {
+                text: document.getElementById('heroCtaSecondaryText').value,
+                href: document.getElementById('heroCtaSecondaryHref').value
+              }
+            };
+
+          case 'categories': {
+            const items = document.querySelectorAll('#categoriesEditor .editor-item');
+            return Array.from(items).map((item, i) => ({
+              id: (this.content.categories[i] && this.content.categories[i].id) || '',
+              name: item.querySelector('.cat-name').value,
+              description: item.querySelector('.cat-desc').value,
+              tag: item.querySelector('.cat-tag').value
+            }));
+          }
+
+          case 'about':
+            return {
+              title: document.getElementById('aboutTitle').value,
+              titleHighlight: document.getElementById('aboutHighlight').value,
+              paragraphs: [
+                document.getElementById('aboutP1').value,
+                document.getElementById('aboutP2').value
+              ],
+              image: document.getElementById('aboutImage').value,
+              badges: [
+                document.getElementById('aboutBadge1').value,
+                document.getElementById('aboutBadge2').value,
+                document.getElementById('aboutBadge3').value,
+                document.getElementById('aboutBadge4').value
+              ]
+            };
+
+          case 'faq': {
+            const faqItems = document.querySelectorAll('#faqEditor .editor-item');
+            return Array.from(faqItems).map(item => ({
+              question: item.querySelector('.faq-question').value,
+              answer: item.querySelector('.faq-answer').value
+            }));
+          }
+
+          case 'contact':
+            return {
+              title: document.getElementById('contactTitle').value,
+              titleHighlight: document.getElementById('contactHighlight').value,
+              titleEnd: document.getElementById('contactTitleEnd').value,
+              subtitle: document.getElementById('contactSubtitle').value,
+              phone: document.getElementById('contactPhone').value,
+              whatsappNumber: document.getElementById('contactWhatsapp').value,
+              instagram: {
+                handle: document.getElementById('contactIgHandle').value,
+                url: document.getElementById('contactIgUrl').value
+              },
+              pickup: {
+                name: document.getElementById('pickupName').value,
+                city: document.getElementById('pickupCity').value,
+                address: document.getElementById('pickupAddress').value,
+                mapUrl: document.getElementById('pickupMapUrl').value
+              }
+            };
+
+          case 'footer':
+            return {
+              description: document.getElementById('footerDesc').value,
+              paymentMethods: document.getElementById('footerPayments').value
+                .split(',').map(s => s.trim()).filter(Boolean)
+            };
+
+          case 'gallery': {
+            const descs = {};
+            document.querySelectorAll('#descGrid .desc-item').forEach(item => {
+              const id = item.dataset.publicId;
+              const text = item.querySelector('textarea').value;
+              if (id && text) descs[id] = text;
+            });
+            return { imageDescriptions: descs };
+          }
+
+          default:
+            return null;
+        }
+      },
+
+      async saveSection(section) {
+        const data = this.collectFormData(section);
+        if (!data) {
+          showToast('Error recolectando datos', 'error');
+          return;
+        }
+
+        try {
+          const result = await ApiService.updateContent(section, data);
+          if (result.success) {
+            // Update local content cache
+            this.content[section] = data;
+            showToast('Contenido guardado');
+          } else {
+            showToast(result.error || 'Error guardando', 'error');
+          }
+        } catch (err) {
+          console.error('Error saving section:', err);
+          showToast('Error de conexion', 'error');
+        }
+      },
+
+      async loadDescriptionsGrid() {
+        const grid = document.getElementById('descGrid');
+        grid.innerHTML = '<div class="loading">Cargando imagenes...</div>';
+
+        try {
+          const result = await ApiService.getImages('all');
+          if (result.success && result.images.length > 0) {
+            const descriptions = (this.content.gallery && this.content.gallery.imageDescriptions) || {};
+            grid.innerHTML = result.images.map(img => `
+              <div class="desc-item" data-public-id="${UIController.escapeHtml(img.public_id)}">
+                <img src="${UIController.escapeHtml(img.thumbnail)}" alt="${UIController.escapeHtml(img.category)}" loading="lazy">
+                <textarea placeholder="Descripcion...">${UIController.escapeHtml(descriptions[img.public_id] || '')}</textarea>
+              </div>
+            `).join('');
+          } else {
+            grid.innerHTML = '<p style="color: var(--text-secondary);">No hay imagenes.</p>';
+          }
+        } catch (err) {
+          grid.innerHTML = '<p style="color: var(--text-secondary);">Error cargando imagenes.</p>';
         }
       }
     };

@@ -3,7 +3,13 @@
  * Interactividad del sitio institucional
  */
 
+// Global content state
+let siteContent = null;
+let imageDescriptions = {};
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Load dynamic content first
+  loadContent();
   // =====================================
   // Theme Toggle (Dark/Light Mode)
   // =====================================
@@ -338,6 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
     card.className = 'product-card gallery-item-enter';
     card.dataset.category = img.category;
     card.dataset.cloudinary = 'true';
+    card.dataset.thumbnail = img.thumbnail || '';
     card.style.opacity = '0'; // Start invisible for animation
 
     const categoryLabels = {
@@ -377,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
       <div class="product-info">
         <h3>${categoryLabels[img.category] || 'Abanico'}</h3>
-        <p>Subido desde galeria</p>
+        <p>${imageDescriptions[img.public_id] ? escapeHtml(imageDescriptions[img.public_id]) : 'Subido desde galeria'}</p>
         <div class="product-meta">
           <span class="product-size">${categorySizes[img.category] || ''}</span>
         </div>
@@ -445,35 +452,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const products = document.querySelectorAll(`.product-card[data-category="${category}"]`);
 
-        // Show loading state first
-        modalGrid.innerHTML = '<div class="modal-loading"><div class="loading-spinner"></div><p>Cargando imagenes...</p></div>';
-
+        // Show cards immediately using cached thumbnails
+        modalGrid.innerHTML = '';
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
 
-        // Clone cards and track image loading
-        const clones = [];
         products.forEach(product => {
           const clone = product.cloneNode(true);
           clone.style.display = '';
           clone.classList.remove('revealed');
-          clones.push(clone);
-        });
 
-        // Wait for images to load, then swap in the cards
-        const imagePromises = clones.map(clone => {
+          // Swap to thumbnail for instant display, then upgrade to full
           const img = clone.querySelector('img');
-          if (!img) return Promise.resolve();
-          if (img.complete) return Promise.resolve();
-          return new Promise(resolve => {
-            img.onload = resolve;
-            img.onerror = resolve;
-          });
-        });
+          if (img) {
+            const fullSrc = img.src;
+            const thumbSrc = product.dataset.thumbnail;
+            if (thumbSrc && fullSrc !== thumbSrc) {
+              img.src = thumbSrc;
+              // Progressively upgrade to full-size in background
+              const fullImg = new Image();
+              fullImg.onload = () => { img.src = fullSrc; };
+              fullImg.src = fullSrc;
+            }
+          }
 
-        Promise.all(imagePromises).then(() => {
-          modalGrid.innerHTML = '';
-          clones.forEach(clone => modalGrid.appendChild(clone));
+          modalGrid.appendChild(clone);
         });
       };
     });
@@ -481,6 +484,195 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Load Cloudinary images on page load
   loadCloudinaryImages();
+
+  // =====================================
+  // Dynamic Content Loading
+  // =====================================
+  async function loadContent() {
+    try {
+      const response = await fetch('/api/content');
+      const data = await response.json();
+      if (data.success && data.content) {
+        siteContent = data.content;
+        imageDescriptions = (data.content.gallery && data.content.gallery.imageDescriptions) || {};
+        applyContent(data.content);
+      }
+    } catch (err) {
+      // Fallback: keep hardcoded HTML as-is
+      console.warn('Content API unavailable, using hardcoded content');
+    }
+  }
+
+  function applyContent(content) {
+    // Helper: safe textContent set
+    const setText = (selector, text) => {
+      const el = document.querySelector(selector);
+      if (el && text !== undefined && text !== null) el.textContent = text;
+    };
+
+    // Helper: safe innerHTML set (for FAQ answers with links)
+    const setHtml = (el, html) => {
+      if (el && html !== undefined) {
+        // Simple sanitizer: strip script tags and event handlers
+        const clean = html
+          .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+          .replace(/on\w+\s*=\s*["'][^"']*["']/gi, '');
+        el.innerHTML = clean;
+      }
+    };
+
+    // Hero
+    if (content.hero) {
+      const h = content.hero;
+      setText('[data-content="hero-title-start"]', h.title);
+      setText('[data-content="hero-title-highlight"]', h.titleHighlight);
+      setText('[data-content="hero-title-end"]', h.titleEnd);
+      setText('[data-content="hero-tagline"]', h.tagline);
+
+      if (h.ctaPrimary) {
+        const cta1 = document.querySelector('[data-content="hero-cta-primary"]');
+        if (cta1) {
+          // Preserve the SVG icon, just update text
+          const svg = cta1.querySelector('svg');
+          cta1.textContent = h.ctaPrimary.text || '';
+          if (svg) cta1.appendChild(svg);
+          if (h.ctaPrimary.href) cta1.href = h.ctaPrimary.href;
+        }
+      }
+      if (h.ctaSecondary) {
+        const cta2 = document.querySelector('[data-content="hero-cta-secondary"]');
+        if (cta2) {
+          cta2.textContent = h.ctaSecondary.text || '';
+          if (h.ctaSecondary.href) cta2.href = h.ctaSecondary.href;
+        }
+      }
+    }
+
+    // Categories
+    if (content.categories && Array.isArray(content.categories)) {
+      content.categories.forEach(cat => {
+        const card = document.querySelector(`.category-card[data-category="${cat.id}"]`);
+        if (!card) return;
+        const h3 = card.querySelector('h3');
+        const p = card.querySelector('p');
+        const tag = card.querySelector('.category-tag');
+        if (h3) h3.textContent = cat.name;
+        if (p) p.textContent = cat.description;
+        if (tag) tag.textContent = cat.tag;
+
+        // Also update categoryInfo for modal
+        if (categoryInfo[cat.id]) {
+          categoryInfo[cat.id].title = cat.name;
+          categoryInfo[cat.id].subtitle = cat.description;
+        }
+      });
+    }
+
+    // About
+    if (content.about) {
+      const a = content.about;
+      const titleEl = document.querySelector('[data-content="about-title"]');
+      if (titleEl) {
+        const highlightSpan = titleEl.querySelector('[data-content="about-title-highlight"]');
+        // Rebuild title: "text highlight"
+        titleEl.childNodes.forEach(n => {
+          if (n.nodeType === 3) n.remove(); // remove text nodes
+        });
+        titleEl.insertBefore(document.createTextNode(a.title + ' '), highlightSpan || titleEl.firstChild);
+        if (highlightSpan) highlightSpan.textContent = a.titleHighlight;
+      }
+
+      if (a.paragraphs) {
+        setText('[data-content="about-p1"]', a.paragraphs[0]);
+        setText('[data-content="about-p2"]', a.paragraphs[1]);
+      }
+
+      if (a.image) {
+        const img = document.querySelector('[data-content="about-image"]');
+        if (img) img.src = a.image;
+      }
+
+      if (a.badges) {
+        a.badges.forEach((badge, i) => {
+          setText(`[data-content="about-badge-${i}"]`, badge);
+        });
+      }
+    }
+
+    // FAQ
+    if (content.faq && Array.isArray(content.faq)) {
+      const faqList = document.querySelector('[data-content="faq-list"]');
+      if (faqList) {
+        faqList.innerHTML = content.faq.map(item => `
+          <details class="faq-item">
+            <summary>${escapeHtml(item.question)}</summary>
+            <p>${item.answer}</p>
+          </details>
+        `).join('');
+      }
+    }
+
+    // Contact
+    if (content.contact) {
+      const c = content.contact;
+      const titleEl = document.querySelector('[data-content="contact-title"]');
+      if (titleEl) {
+        const hlSpan = titleEl.querySelector('[data-content="contact-title-highlight"]');
+        const endSpan = titleEl.querySelector('[data-content="contact-title-end"]');
+        // Clear text nodes
+        titleEl.childNodes.forEach(n => { if (n.nodeType === 3) n.remove(); });
+        if (hlSpan) {
+          titleEl.insertBefore(document.createTextNode(c.title + ' '), hlSpan);
+          hlSpan.textContent = c.titleHighlight;
+        }
+        if (endSpan) endSpan.textContent = c.titleEnd || '';
+      }
+
+      setText('[data-content="contact-subtitle"]', c.subtitle);
+      setText('[data-content="contact-phone"]', c.phone);
+
+      if (c.instagram) {
+        const igLink = document.querySelector('[data-content="contact-instagram"]');
+        if (igLink) {
+          igLink.textContent = c.instagram.handle;
+          igLink.href = c.instagram.url;
+        }
+      }
+
+      if (c.pickup) {
+        setText('[data-content="contact-pickup"]', `Pickup: ${c.pickup.name}, ${c.pickup.city}`);
+        const pickupLink = document.querySelector('[data-content="contact-pickup-link"]');
+        if (pickupLink && c.pickup.mapUrl) pickupLink.href = c.pickup.mapUrl;
+      }
+
+      // Update WhatsApp links with new number
+      if (c.whatsappNumber) {
+        document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+          const url = new URL(link.href);
+          link.href = link.href.replace(/wa\.me\/\d+/, `wa.me/${c.whatsappNumber}`);
+        });
+      }
+    }
+
+    // Footer
+    if (content.footer) {
+      setText('[data-content="footer-description"]', content.footer.description);
+      if (content.footer.paymentMethods) {
+        const pmEl = document.querySelector('[data-content="footer-payments"]');
+        if (pmEl) {
+          pmEl.innerHTML = content.footer.paymentMethods
+            .map(m => `<span>${escapeHtml(m)}</span>`)
+            .join('<span>|</span>');
+        }
+      }
+    }
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
 
   // =====================================
   // Console Easter Egg
