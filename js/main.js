@@ -310,18 +310,37 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Clear loading state
-    if (loadingEl) loadingEl.remove();
-
     if (images.length > 0) {
-      // Clear any existing content
-      galleryGrid.innerHTML = '';
+      // Build cards off-screen, keep spinner until first images render
+      const fragment = document.createDocumentFragment();
+      const cards = [];
 
-      // Add all images with staggered animation
       images.forEach((img, index) => {
         const card = createProductCard(img, index);
-        galleryGrid.appendChild(card);
+        fragment.appendChild(card);
+        cards.push(card);
       });
+
+      // Wait for the first few images to actually load before swapping
+      const firstImages = cards.slice(0, 4)
+        .map(c => c.querySelector('img'))
+        .filter(Boolean);
+
+      const imageReady = (img) => {
+        if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+        return new Promise(resolve => {
+          img.onload = resolve;
+          img.onerror = resolve;
+          // Safety timeout so we don't wait forever
+          setTimeout(resolve, 3000);
+        });
+      };
+
+      await Promise.all(firstImages.map(imageReady));
+
+      // Now swap: remove spinner, insert cards
+      galleryGrid.innerHTML = '';
+      galleryGrid.appendChild(fragment);
 
       // Re-attach filter listeners for new cards
       attachFilterListeners();
