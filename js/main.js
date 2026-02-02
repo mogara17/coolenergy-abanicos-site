@@ -445,16 +445,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const products = document.querySelectorAll(`.product-card[data-category="${category}"]`);
 
-        modalGrid.innerHTML = '';
+        // Show loading state first
+        modalGrid.innerHTML = '<div class="modal-loading"><div class="loading-spinner"></div><p>Cargando imagenes...</p></div>';
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        // Clone cards and track image loading
+        const clones = [];
         products.forEach(product => {
           const clone = product.cloneNode(true);
           clone.style.display = '';
           clone.classList.remove('revealed');
-          modalGrid.appendChild(clone);
+          clones.push(clone);
         });
 
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        // Wait for images to load, then swap in the cards
+        const imagePromises = clones.map(clone => {
+          const img = clone.querySelector('img');
+          if (!img) return Promise.resolve();
+          if (img.complete) return Promise.resolve();
+          return new Promise(resolve => {
+            img.onload = resolve;
+            img.onerror = resolve;
+          });
+        });
+
+        Promise.all(imagePromises).then(() => {
+          modalGrid.innerHTML = '';
+          clones.forEach(clone => modalGrid.appendChild(clone));
+        });
       };
     });
   }
