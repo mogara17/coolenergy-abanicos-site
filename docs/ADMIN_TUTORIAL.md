@@ -9,264 +9,182 @@ Guia completa para usar el panel de administracion de Cool Energy Abanicos.
 ### URL de Acceso
 
 ```
-https://tu-sitio.com/admin-abanicos-abm
+https://coolenergy-uy.up.railway.app/admin-abanicos-abm
 ```
 
 ### Pantalla de Login
 
-```mermaid
-graph LR
-    A[Navegar a /admin-abanicos-abm] --> B[Pantalla de Login]
-    B --> C[Ingresar Password]
-    C --> D{Correcto?}
-    D -->|Si| E[Panel Admin]
-    D -->|No| F[Error - Reintentar]
-    F --> C
-```
-
-**Password actual:** `#Ab4n1co5-2024!`
+1. Navega a la URL de acceso
+2. Ingresa la contrasena de administrador
+3. Hace clic en **Entrar**
 
 > **Nota:** Despues de 5 intentos fallidos, deberas esperar 15 minutos.
 
 ---
 
-## 2. Dashboard Principal
+## 2. Navegacion por Tabs
 
-Una vez logueado, veras el dashboard con las siguientes secciones:
+Una vez logueado, veras el panel con **8 pestanas** en la parte superior:
 
-```mermaid
-graph TB
-    subgraph "Panel de Administracion"
-        A[Analytics]
-        B[Estadisticas]
-        C[Subir Imagenes]
-        D[Galeria]
-    end
+| Tab | Que edita |
+|-----|-----------|
+| **Imagenes** | Subir y gestionar fotos de productos |
+| **Hero** | Titulo grande y botones del inicio del sitio |
+| **Categorias** | Nombres y descripciones de cada tipo de abanico |
+| **Nosotros** | Seccion "Sobre nosotros" |
+| **FAQ** | Preguntas frecuentes |
+| **Contacto** | Telefono, Instagram, WhatsApp, pickup |
+| **Footer** | Pie de pagina y metodos de pago |
+| **Descripciones** | Textos descriptivos para cada imagen de la galeria |
 
-    A --> A1[Visitas Hoy]
-    A --> A2[Sesiones Unicas]
-
-    B --> B1[Total Imagenes]
-    B --> B2[Por Categoria]
-
-    C --> C1[Seleccionar Categoria]
-    C --> C2[Subir Archivo]
-
-    D --> D1[Ver Imagenes]
-    D --> D2[Filtrar]
-    D --> D3[Eliminar]
-```
-
-### Seccion Analytics
-
-Muestra metricas basicas del sitio:
-
-| Metrica | Descripcion |
-|---------|-------------|
-| Visitas hoy | Total de pageviews del dia |
-| Sesiones unicas | Visitantes unicos |
-
-### Seccion Estadisticas
-
-Muestra cantidad de imagenes:
-
-| Stat | Descripcion |
-|------|-------------|
-| Total | Todas las imagenes |
-| RAVE XL | Imagenes en categoria RAVE XL |
-| RAVE L | Imagenes en categoria RAVE L |
-| MEDIUM | Imagenes en categoria MEDIUM |
+Hace clic en cualquier tab para cambiar de seccion.
 
 ---
 
-## 3. Subir Nueva Imagen
+## 3. Tab: Imagenes
 
-### Flujo Completo
+### Subir una Imagen
 
-```mermaid
-flowchart TD
-    A[Inicio] --> B[1. Seleccionar Categoria]
-    B --> C{Categoria seleccionada?}
-    C -->|No| B
-    C -->|Si| D[Area de upload habilitada]
-    D --> E[2. Click en area de upload]
-    E --> F[Selector de archivos]
-    F --> G[3. Elegir imagen]
-    G --> H{Formato valido?}
-    H -->|No| I[Error: formato invalido]
-    I --> F
-    H -->|Si| J{Tamanio < 10MB?}
-    J -->|No| K[Error: muy grande]
-    K --> F
-    J -->|Si| L[4. Preview de imagen]
-    L --> M{Imagen correcta?}
-    M -->|No| N[Click X para quitar]
-    N --> E
-    M -->|Si| O[5. Click Subir a Cloudinary]
-    O --> P[Barra de progreso]
-    P --> Q[Upload completado]
-    Q --> R[Galeria actualizada]
-    R --> S[Fin]
-```
+1. Selecciona la **categoria** del producto haciendo clic en uno de los 10 botones de categoria
+2. Hace clic en el area de upload o arrastra la imagen
+3. Verifica el preview de la imagen
+4. Hace clic en **Subir a Cloudinary**
+5. Espera a que la barra de progreso llegue al 100%
 
-### Paso 1: Seleccionar Categoria
+### Categorias Disponibles
 
-```
-+------------------+  +------------------+
-|    RAVE XL       |  |    RAVE L        |
-|    66cm          |  |    50cm          |
-+------------------+  +------------------+
+| Categoria | Talle | Tipo |
+|-----------|-------|------|
+| XL Reflective | 66cm | Abanico grande reflectivo |
+| XL Psicodelicos | 66cm | Abanico grande psicodelico |
+| XL Glow | 66cm | Abanico grande que brilla |
+| XL Holographic | 66cm | Abanico grande holografico |
+| L Electric | 50cm | Abanico mediano electrico |
+| L Dark | 50cm | Abanico mediano oscuro |
+| M Glitter | 40cm | Abanico chico con glitter |
+| M Basic | 40cm | Abanico chico basico |
+| Porta Abanico XL/L | Accesorio | Funda para abanicos grandes |
+| Porta Abanico M | Accesorio | Funda para abanicos chicos |
 
-+------------------+  +------------------+
-|    MEDIUM        |  |  PERSONALIZADOS  |
-|    40cm          |  |    A pedido      |
-+------------------+  +------------------+
-```
-
-- Click en la categoria deseada
-- La categoria se resaltara con borde magenta
-- El area de upload se habilitara
-
-### Paso 2: Seleccionar Imagen
-
-```
-+----------------------------------------+
-|                                        |
-|     [Icono de Upload]                  |
-|                                        |
-|   Click para seleccionar imagen        |
-|   (RAVE XL)                            |
-|                                        |
-|   JPG, PNG, WEBP - Max 10MB            |
-|                                        |
-+----------------------------------------+
-```
-
-Opciones:
-- **Click** en el area para abrir selector de archivos
-- **Arrastrar** imagen directamente al area
-
-### Paso 3: Verificar Preview
-
-```
-+----------------------------------------+
-|  +-----------------------------+  [X]  |
-|  |                             |       |
-|  |    [Preview de imagen]     |       |
-|  |                             |       |
-|  +-----------------------------+       |
-|  imagen-seleccionada.jpg               |
-+----------------------------------------+
-```
-
-- La imagen aparece como preview
-- El nombre del archivo se muestra debajo
-- Boton X para quitar y seleccionar otra
-
-### Paso 4: Subir a Cloudinary
-
-```
-+----------------------------------------+
-|  [===========================    ] 75% |
-|           Subiendo... 75%              |
-+----------------------------------------+
-```
-
-- Click en "Subir a Cloudinary"
-- La barra de progreso muestra el avance
-- Esperar hasta que llegue al 100%
-
-### Paso 5: Confirmacion
-
-```
-+----------------------------------------+
-|  [check] Imagen subida correctamente!  |
-+----------------------------------------+
-```
-
-- Mensaje de exito aparece
-- La galeria se actualiza automaticamente
-- Los stats se actualizan
-
----
-
-## 4. Gestionar Galeria
-
-### Filtrar por Categoria
-
-```mermaid
-graph LR
-    A[Todas las categorias] --> B[Dropdown]
-    B --> C[RAVE XL]
-    B --> D[RAVE L]
-    B --> E[MEDIUM]
-    B --> F[Personalizados]
-```
-
-Usar el selector para ver solo imagenes de una categoria.
-
-### Eliminar Imagen
-
-```mermaid
-sequenceDiagram
-    participant U as Usuario
-    participant G as Galeria
-    participant S as Server
-    participant C as Cloudinary
-
-    U->>G: Hover sobre imagen
-    G->>G: Mostrar boton X
-    U->>G: Click en X
-    G->>U: Confirmar eliminacion?
-    U->>G: Confirmar
-    G->>G: Animacion de salida
-    G->>S: DELETE /api/images/:id
-    S->>C: Eliminar de Cloudinary
-    C->>S: OK
-    S->>G: Exito
-    G->>G: Actualizar stats
-```
-
-**Pasos:**
-
-1. Pasar el mouse sobre la imagen
-2. Aparece boton X rojo en la esquina
-3. Click en el boton X
-4. Confirmar en el dialogo
-5. La imagen desaparece con animacion
-
----
-
-## 5. Cerrar Sesion
-
-Click en el boton "Salir" en la esquina superior derecha.
-
-```mermaid
-graph LR
-    A[Click Salir] --> B[Token eliminado]
-    B --> C[Redirigir a Login]
-```
-
-La sesion expira automaticamente despues de 24 horas.
-
----
-
-## 6. Tips y Mejores Practicas
-
-### Optimizacion de Imagenes
+### Requisitos de Imagen
 
 | Recomendacion | Detalle |
 |---------------|---------|
-| Formato | Preferir WEBP o JPG |
-| Resolucion | 1200x1200 px maximo |
-| Tamanio | Menos de 2MB ideal |
+| Formato | JPG, PNG o WEBP |
+| Tamanio maximo | 10MB |
+| Resolucion ideal | 1200x1200 px |
 | Aspecto | Cuadrado funciona mejor |
 
-### Organizacion
+### Gestionar Galeria
 
-- Subir imagenes a la categoria correcta
-- Eliminar imagenes duplicadas
-- Mantener galeria actualizada
+- Usa el filtro de **categoria** para ver solo un tipo de producto
+- Para eliminar: hace clic en el boton **X** de la imagen y confirma
+
+---
+
+## 4. Tab: Hero
+
+El Hero es la seccion grande de bienvenida al abrir el sitio.
+
+### Campos editables
+
+- **Titulo (inicio)**: Primera parte del titulo (ej: "Desmayate de la")
+- **Palabra destacada**: Palabra resaltada en color (ej: "emocion")
+- **Titulo (final)**: Ultima parte del titulo (ej: "y no del calor")
+- **Tagline**: Texto debajo del titulo
+- **Boton primario**: Texto y enlace del boton principal
+- **Boton secundario**: Texto y enlace del segundo boton
+
+Hace clic en **Guardar Hero** al terminar.
+
+---
+
+## 5. Tab: Categorias
+
+Edita los nombres y descripciones de las 10 categorias de productos.
+
+Para cada categoria:
+- **Nombre**: Como se muestra en el sitio
+- **Descripcion**: Texto descriptivo del tipo de abanico
+- **Tag**: Etiqueta corta (ej: "66cm - Festival")
+
+Hace clic en cada categoria para expandirla. Al terminar, hace clic en **Guardar Categorias**.
+
+---
+
+## 6. Tab: Nosotros
+
+Edita la seccion "Sobre nosotros" del sitio.
+
+- **Titulo** y **Palabra destacada**
+- **Parrafo 1** y **Parrafo 2**: Textos descriptivos de la marca
+- **URL de imagen**: Imagen que acompana la seccion
+- **Badges** (4): Etiquetas como "Hecho en Uruguay", "Material Premium"
+
+Hace clic en **Guardar Nosotros**.
+
+---
+
+## 7. Tab: FAQ
+
+Preguntas frecuentes que se muestran como acordeon en el sitio.
+
+- **Editar**: Modifica pregunta o respuesta directamente
+- **Agregar**: Boton **+ Agregar pregunta** al final de la lista
+- **Eliminar**: Boton **X** al lado de cada pregunta
+
+Hace clic en **Guardar FAQ**.
+
+---
+
+## 8. Tab: Contacto
+
+Informacion de contacto del sitio.
+
+- **Titulo CTA**, **Palabra destacada**, **Subtitulo**
+- **Telefono**: Numero visible en el sitio
+- **Instagram**: Handle y URL del perfil
+- **WhatsApp**: Numero completo con codigo de pais (ej: 59895192300)
+- **Pickup**: Nombre, direccion, ciudad y URL de Google Maps
+
+Hace clic en **Guardar Contacto**.
+
+---
+
+## 9. Tab: Footer
+
+Pie de pagina del sitio.
+
+- **Descripcion**: Texto de la marca en el footer
+- **Metodos de pago**: Lista separada por coma (ej: "Mercado Pago, Transferencia, Efectivo")
+
+Hace clic en **Guardar Footer**.
+
+---
+
+## 10. Tab: Descripciones
+
+Textos descriptivos para cada imagen de la galeria publica.
+
+1. Se cargan todas las imagenes al abrir esta tab
+2. Escribi una descripcion debajo de cada imagen
+3. Hace clic en **Guardar todas las descripciones**
+
+Estas descripciones aparecen en el sitio publico debajo de cada foto.
+
+---
+
+## 11. Informacion General
+
+### Los cambios son inmediatos
+
+Despues de guardar cualquier seccion, los visitantes del sitio ven el contenido nuevo al recargar la pagina.
+
+### Sesion
+
+- La sesion dura 24 horas
+- Boton **Salir** en la esquina superior derecha para cerrar sesion
+- Si la sesion expira, recarga la pagina y volve a ingresar
 
 ### Seguridad
 
@@ -276,58 +194,22 @@ La sesion expira automaticamente despues de 24 horas.
 
 ---
 
-## 7. Solucion de Problemas
+## 12. Solucion de Problemas
+
+### "Token invalido o expirado"
+La sesion expiro. Recarga la pagina y volve a ingresar.
 
 ### Imagen no sube
+- Verifica formato (JPG, PNG, WEBP)
+- Verifica tamanio (< 10MB)
+- Asegurate de haber seleccionado categoria
 
-```mermaid
-graph TD
-    A[Imagen no sube] --> B{Formato correcto?}
-    B -->|No| C[Usar JPG/PNG/WEBP]
-    B -->|Si| D{Tamanio < 10MB?}
-    D -->|No| E[Reducir tamanio]
-    D -->|Si| F{Conexion estable?}
-    F -->|No| G[Reintentar]
-    F -->|Si| H[Contactar soporte]
-```
+### No veo los cambios en el sitio
+Recarga con Ctrl+F5 (Windows) o Cmd+Shift+R (Mac) para limpiar cache.
 
-### No puedo hacer login
-
-1. Verificar que la contrasena es correcta
-2. Esperar 15 minutos si hubo muchos intentos
-3. Verificar URL correcta (`/admin-abanicos-abm`)
-
-### Galeria no actualiza
-
-1. Refrescar la pagina (F5)
-2. Verificar conexion a internet
-3. Intentar cerrar y abrir sesion
+### El panel no carga
+Verifica la URL: debe ser `/admin-abanicos-abm`
 
 ---
 
-## 8. Resumen Visual
-
-```mermaid
-journey
-    title Un dia usando el Admin Panel
-    section Login
-      Ir a /admin-abanicos-abm: 5: Admin
-      Ingresar password: 5: Admin
-    section Revisar
-      Ver analytics: 3: Admin
-      Ver stats: 3: Admin
-    section Subir
-      Seleccionar categoria: 5: Admin
-      Elegir imagen: 5: Admin
-      Verificar preview: 4: Admin
-      Subir a Cloudinary: 5: Admin
-    section Gestionar
-      Filtrar galeria: 3: Admin
-      Eliminar imagen vieja: 4: Admin
-    section Salir
-      Cerrar sesion: 5: Admin
-```
-
----
-
-*Tutorial creado para Cool Energy Abanicos - Enero 2026*
+*Tutorial actualizado - Febrero 2026*
